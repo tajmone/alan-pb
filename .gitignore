@@ -1,0 +1,77 @@
+########################################
+#  ALAN-IF PureBasic                   #
+#  https://github.com/tajmone/alan-pb  #
+########################################
+
+## Alan Files
+#############
+*.a3c
+*.a3r
+*.log
+*.sav
+
+## AlanIDE Files
+################
+.project
+
+
+## PureBasic
+############
+*.pb.cfg
+*.pbi.cfg
+*.pbp
+project.cfg
+
+
+## Misc Work Files
+##################
+
+# Temporary/backup or removed files and folders:
+___*
+___*.*
+
+# Links and URLs
+*.lnk
+*.url
+
+
+## Apps Local Settings & Temp Files
+###################################
+
+# Chrome's debug logs for local HTML pages:
+debug.log
+
+
+## Binary Executables
+#####################
+*.app
+*.dll
+*.dylib
+*.exe
+*.out
+*.so
+
+# ==============================================================================
+#                             COMMON IGNORE PATTERNS
+# ==============================================================================
+# Common ignore patterns for Windows, Linux and macOS.
+
+$RECYCLE.BIN/
+*.stackdump
+*~
+._*
+.AppleDouble
+.directory
+.DS_Store
+.fuse_hidden*
+.LSOverride
+.nfs*
+.Trash-*
+[Dd]esktop.ini
+ehthumbs.db
+ehthumbs_vista.db
+Icon
+Thumbs.db
+Thumbs.db:encryptable
+
+# EOF #

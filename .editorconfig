@@ -1,0 +1,90 @@
+########################################
+#  ALAN-IF PureBasic                   #
+#  https://github.com/tajmone/alan-pb  #
+########################################
+
+root = true
+
+## Repository Configurations
+############################
+[.{git*,editorconfig,*.yml}]
+end_of_line = lf
+indent_style = space
+indent_size = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[.gitmodules]
+indent_style = tab
+
+
+## Alan IF
+##########
+
+# Common settings for all Alan files
+[*.{alan,i,a3s,a3t}]
+indent_style = space
+indent_size = unset
+charset = utf-8-bom
+# Additional settings for non-generated Alan files
+[*.{alan,i,a3s}]
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## PureBasic
+############
+[*.{pb,pbi,pbf}]
+charset = utf-8-bom
+indent_style = space
+indent_size = unset
+end_of_line = unset
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+
+## Ruby
+#######
+[{*.rb,*.gemspec,*.rake,Rakefile,rakefile}]
+indent_size = 2
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## Shell Scripts
+################
+[*.sh]
+end_of_line = lf
+indent_style = tab
+indent_size = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## Batch Scripts
+################
+[*.{bat,cmd}]
+indent_style = tab
+indent_size = unset
+end_of_line = crlf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## Markdown GFM
+###############
+[*.md]
+indent_style = space
+indent_size = unset
+end_of_line = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# EOF #

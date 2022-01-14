@@ -1,0 +1,79 @@
+########################################
+#  ALAN-IF PureBasic                   #
+#  https://github.com/tajmone/alan-pb  #
+########################################
+
+# Set Git's default behaviour to text-files autodetection, in case users don't
+# have `core.autocrlf` set:
+* text=auto
+
+## Repository Configuration
+###########################
+.editorconfig    text eol=lf
+.gitlab-ci.yml   text eol=lf
+.travis.yml      text eol=lf
+.gitattributes   text eol=lf
+.gitconfig       text eol=lf
+.gitignore       text eol=lf
+.gitmodules      text eol=lf
+
+
+## Alan IF Files
+################
+*.a3c    binary
+*.a3r    binary
+*.a3s    text       linguist-language=Text    linguist-detectable=false
+*.a3t    text       linguist-language=Text    linguist-detectable=false
+*.alan   text       linguist-language=Alan    linguist-detectable=true
+*.i      text       linguist-language=Alan    linguist-detectable=true
+*.ifid   text       linguist-generated=true
+*.log    text
+*.sav    binary
+
+# Alan IDE Files
+.project   text     linguist-language=XML     linguist-generated=true
+
+
+## PureBasic Files
+##################
+[attr]PureBasic text linguist-language=PureBasic
+*.cfg   text linguist-generated
+*.pb    PureBasic
+*.pbf   PureBasic
+*.pbi   PureBasic
+*.pbp   linguist-language=XML linguist-generated
+
+
+## Ruby Files
+#############
+[attr]Ruby text eol=lf
+*.rb        Ruby
+*.rake      Ruby
+*.gemspec   Ruby
+Rakefile    Ruby
+rakefile    Ruby
+
+
+## Shell Scripts
+################
+*.bat   text eol=crlf
+*.sh    text eol=lf
+*.ps1   text eol=crlf
+*.sed   text eol=lf
+
+
+## Documentation
+################
+*.adoc       text
+*.asciidoc   text
+*.md         text
+*.txt        text
+*.doc        binary
+*.docx       binary
+*.odt        binary
+*.pdf        binary
+COPYING      text
+LICENSE      text
+UNLICENSE    text
+
+# EOF #
