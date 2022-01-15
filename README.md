@@ -19,12 +19,19 @@ Repository created in January 2020 by [Tristano Ajmone].
 
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3,4" -->
 
+- [Repository Map](#repository-map)
 - [License](#license)
+- [Third Party Assets](#third-party-assets)
 - [Reference Links](#reference-links)
 
 <!-- /MarkdownTOC -->
 
 -----
+
+# Repository Map
+
+- [`/adventures/demos/`][demos/] — source adventures for testing.
+
 
 # License
 
@@ -56,6 +63,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ```
+
+# Third Party Assets
+
+This repository also contains some demo adventures written by third parties.
+For full credits and info on their authors, copyright and license, see the README file in their folder:
+
+- [`/adventures/demos/`][demos/]
 
 -------------------------------------------------------------------------------
 
@@ -115,6 +129,8 @@ SOFTWARE.
 [Travis CI]: https://travis-ci.com/ "Visit Travis CI website"
 
 <!-- project files & folders -->
+
+[demos/]: ./adventures/demos/ "Navigate to demo adventures folder"
 
 [LICENSE]: ./LICENSE "View MIT License"
 
