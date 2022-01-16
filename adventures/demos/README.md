@@ -10,7 +10,9 @@ Some third party ALAN IF v3 demo adventures for testing purposes.
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
 - [Folder Contents](#folder-contents)
-- [Changes](#changes)
+    - [Changes](#changes)
+- [Building](#building)
+- [Adding New Adventures](#adding-new-adventures)
 - [Credits](#credits)
     - [Advent](#advent)
     - [Saviour](#saviour)
@@ -21,13 +23,14 @@ Some third party ALAN IF v3 demo adventures for testing purposes.
 
 # Folder Contents
 
+This repository folder contains the following source adventures, and their multimedia assets:
+
 - [`advent.alan`][advent.alan]
 - [`cloak.alan`][cloak.alan]
 - [`saviour.alan`][saviour.alan]
 - [`saviour.png`][saviour.png]
 
-
-# Changes
+## Changes
 
 For the sake of code styles consistency, all ALAN sources were converted from ISO-8859-1 to UTF-8 with BOM, indented using spaces, and stripped of all trailing spaces.
 
@@ -36,6 +39,25 @@ For the sake of brevity, the _Advent_ source file was renamed from `adventV3.ala
 In order to keep related assets grouped under same-named files, the original `logo.png` image from _Saviour_ was renamed to `saviour.png`, and its `Show` statement in `saviour.alan` (L&nbsp;1354) was adapted accordingly.
 
 Besides these changes, which are merely aesthetic and organizational, the source code of the original adventures wasn't altered in any meaningful way.
+
+
+# Building
+
+    rake :demos
+
+For testing this repository, we need that each adventure is compiled with and without the `-debug` and `-pack` options, in turn.
+
+Therefore, the Rake task will compile each source adventure three times, invoking the ALAN compiler with different options, then rename the generated storyfiles (`.a3c`) and resource files (`.a3r`) according to the following convention:
+
+- `<adventure>_DBG.a3c`/`.a3r` — compiler option `-debug`
+- `<adventure>_PACK.a3c`/`.a3r` — compiler option `-pack`
+- `<adventure>.a3c`/`.a3r` — no compiler options
+
+
+# Adding New Adventures
+
+Rake will auto-detect and handle any `*.alan` source found in this folder, so new source adventures can be added without having to tweak the `Rakefile`.
+But any source adventure that imports external ALAN modules (`.i`) will have to do so using absolute paths, since Rake will use the same compiler options for each adventure, so there's no way to specify an `-include <path>` command line option for specific adventures.
 
 
 # Credits

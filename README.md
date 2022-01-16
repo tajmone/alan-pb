@@ -20,6 +20,7 @@ Repository created in January 2020 by [Tristano Ajmone].
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3,4" -->
 
 - [Repository Map](#repository-map)
+- [Building](#building)
 - [License](#license)
 - [Third Party Assets](#third-party-assets)
 - [Reference Links](#reference-links)
@@ -30,7 +31,30 @@ Repository created in January 2020 by [Tristano Ajmone].
 
 # Repository Map
 
+- [`/_assets/`][_assets/] — project assets:
+    + [`/rake/`][rake/] — custom [Rake] helpers.
 - [`/adventures/demos/`][demos/] — source adventures for testing.
+
+
+# Building
+
+This repository uses [Rake] to manage the build toolchain.
+
+To build the project for the first time, or update it when dependencies have changed, open the terminal (CMD, Bash, etc.) anywhere inside the repository and type:
+
+    rake
+
+To force rebuilding the whole project:
+
+    rake -B
+
+To delete all generated files and bring the repository to a pristine state:
+
+    rake clobber
+
+For more info on the available tasks:
+
+    rake -T
 
 
 # License
@@ -127,10 +151,13 @@ For full credits and info on their authors, copyright and license, see the READM
 [EditorConfig]: https://editorconfig.org "Visit the EditorConfig project website"
 [Sublime Text 4]: https://www.sublimetext.com "Visit Sublime Text website"
 [Travis CI]: https://travis-ci.com/ "Visit Travis CI website"
+[Rake]: https://ruby.github.io/rake/ "Visit Rake website"
 
 <!-- project files & folders -->
 
+[_assets/]: ./_assets/ "Navigate to assets folder"
 [demos/]: ./adventures/demos/ "Navigate to demo adventures folder"
+[rake/]: ./_assets/rake/ "Navigate to assets folder"
 
 [LICENSE]: ./LICENSE "View MIT License"
 
