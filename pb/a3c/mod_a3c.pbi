@@ -1,8 +1,9 @@
-﻿; "mod_a3c.pbi" v0.1.0 | 2022/01/25 | PureBASIC 5.73 LTS | ALAN 3.0beta8
+﻿; "mod_a3c.pbi" v0.1.1 | 2022/01/26 | PureBASIC 5.73 LTS | ALAN 3.0beta8
 ; ------------------------------------------------------------------------------
 ; * Checks if an '.a3c' file is a valid storyfile:
 ;   * File Exists?
 ;   * Does it start with the 'ALAN' tag?
+;   * Was it compiler with ALAN >= 3.0beta2?
 ; * Extracts the ALAN compiler version used.
 ; ------------------------------------------------------------------------------
 
@@ -26,10 +27,17 @@ Module a3c
   XIncludeFile "ACodeHeader.pbi"
 
   ;-/// Private Procedures Declarations
-  Declare.s GetAlanVersionString()
+  ; Endianess Handling:
   Declare   ReverseAword(*Aword.Long)
   Declare   ReverseHeader(*header.ACodeHeader)
-  Declare   DebugHeader(*header)
+  ; Compiler Version:
+  Declare.s GetAlanVersionString()
+  Declare.i Correction()
+  Declare.i Is3_0Alpha()
+  Declare.i Is3_0Beta()
+  Declare.i IsPreBeta2()
+  ; Info Dumping:
+  Declare   DumpHeaderHex(*header)
 
   ;-/// Private Data
   SFHeader.ACodeHeader
@@ -74,10 +82,10 @@ Module a3c
     EndIf
     ;- Reverse ACodeHeader Endiness
     ; PrintN("Header before reversing:")
-    ; DebugHeader(@SFHeader)
+    ; DumpHeaderHex(@SFHeader)
     ReverseHeader(@SFHeader)
     ; PrintN("Header after reversing:")
-    ; DebugHeader(@SFHeader)
+    ; DumpHeaderHex(@SFHeader)
 
     ;- Check that file starts with ALAN tag:
     If PeekS(@SFHeader\tag, 4, #PB_Ascii) <> "ALAN"
@@ -88,6 +96,13 @@ Module a3c
     ;- Get Adventure compiler version:
     SFInfo\CompilerVer = GetAlanVersionString()
 
+    ;- Check version compatibility:
+    ; Adventures created with ALAN < 3.0beta2 are not (yet) supported:
+    If IsPreBeta2()
+      ConsoleError("Unsupported compiler version: " + SFInfo\CompilerVer)
+      ProcedureReturn #False
+    EndIf
+
     ;-----------------------
 
     CloseFile(#a3cFile)
@@ -95,6 +110,27 @@ Module a3c
   EndProcedure
 
   ;-/// Private Procedures
+
+  ;-// Endianess Handling Procedures
+
+  Procedure ReverseAword(*Aword.Long)
+    ; TODO: Check memory bounds.
+    ; if (w < &memory[0] || w > &memory[memorySize])
+    ;   syserr("Reversing address outside of memory");
+    *Aword\l = ((((*Aword\l)&$FF)<<24)|
+                (((*Aword\l)&$FF00)<<8)|
+                (((*Aword\l)>>8)&$FF00)|
+                (((*Aword\l)>>24)&$FF))
+  EndProcedure
+
+  Procedure ReverseHeader(*header.ACodeHeader)
+    ; Reverse all words in the header except the tag and the version marking
+    For i = SizeOf(long) * 2 To SizeOf(ACodeHeader) Step SizeOf(long)
+      ReverseAword(*header + i)
+    Next
+  EndProcedure
+
+  ;- // Compiler Version Procedures
 
   Procedure.s GetAlanVersionString()
     ; Converts adventure compiler version to string.
@@ -119,24 +155,41 @@ Module a3c
     ProcedureReturn a3cVer
   EndProcedure
 
-  Procedure ReverseHeader(*header.ACodeHeader)
-    ; Reverse all words in the header except the tag and the version marking
-    For i = SizeOf(long) * 2 To SizeOf(ACodeHeader) Step SizeOf(long)
-      ReverseAword(*header + i)
-    Next
+  Procedure.i Correction()
+    ; Return Alan Version->Correction
+    Shared SFHeader
+    ProcedureReturn SFHeader\version[2] & $FF
   EndProcedure
 
-  Procedure ReverseAword(*Aword.Long)
-    ; TODO: Check memory bounds.
-    ; if (w < &memory[0] || w > &memory[memorySize])
-    ;   syserr("Reversing address outside of memory");
-    *Aword\l = ((((*Aword\l)&$FF)<<24)|
-                (((*Aword\l)&$FF00)<<8)|
-                (((*Aword\l)>>8)&$FF00)|
-                (((*Aword\l)>>24)&$FF))
+  Procedure.i Is3_0Alpha()
+    ; Check whether adventure was compiled with ALAN 3.0alpha (any correction)
+    Shared SFHeader
+    With SFHeader
+      ProcedureReturn Bool((\version[0] & $FF) = 3 And
+                           (\version[1] & $FF = 0) And
+                           (\version[3] & $FF) = 'a')
+    EndWith
   EndProcedure
 
-  Procedure DebugHeader(*header.Long)
+  Procedure.i Is3_0Beta()
+    ; Check whether adventure was compiled with ALAN 3.0beta (any correction)
+    Shared SFHeader
+    With SFHeader
+      ProcedureReturn Bool((\version[0] & $FF) = 3 And
+                           (\version[1] & $FF = 0) And
+                           (\version[3] & $FF) = 'b')
+    EndWith
+  EndProcedure
+
+  Procedure.i IsPreBeta2()
+    ; Check whether adventure was compiled with ALAN < 3.0beta2
+    ProcedureReturn Bool(Is3_0Alpha() Or
+                         (Is3_0Beta() And Correction() <= 1))
+  EndProcedure
+
+  ;- Info Dumping Procedures
+
+  Procedure DumpHeaderHex(*header.Long)
     PrintN("--- ACodeHeader --------------------------")
     For i = 1 To SizeOf(ACodeHeader)/SizeOf(long)
       Print(HexAword(*header\l))
