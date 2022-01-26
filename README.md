@@ -34,7 +34,8 @@ Repository created in January 2020 by [Tristano Ajmone].
 - [`/_assets/`][_assets/] — project assets:
     + [`/rake/`][rake/] — custom [Rake] helpers.
 - [`/adventures/demos/`][demos/] — source adventures for testing.
-
+- [`/pb/`][pb/] — PureBasic sources:
+    + [`/a3c/`][a3c/] — Storyfiles parsing.
 
 # Building
 
@@ -158,6 +159,9 @@ For full credits and info on their authors, copyright and license, see the READM
 [_assets/]: ./_assets/ "Navigate to assets folder"
 [demos/]: ./adventures/demos/ "Navigate to demo adventures folder"
 [rake/]: ./_assets/rake/ "Navigate to assets folder"
+
+[pb/]: ./pb/ "Navigate to PureBasic sources folder"
+[a3c/]: ./pb/a3c/ "Navigate to '/pb/a3c/' folder"
 
 [LICENSE]: ./LICENSE "View MIT License"
 
