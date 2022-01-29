@@ -1,4 +1,4 @@
-﻿; "a3cinfo.pb" v0.1.0 | 2022/01/25 | PureBASIC 5.73 LTS | ALAN 3.0beta8
+﻿; "a3cinfo.pb" v0.2.0 | 2022/01/29 | PureBASIC 5.73 LTS | ALAN 3.0beta8
 ; ******************************************************************************
 ; *                                                                            *
 ; *                        ALAN Story File Info-Dumper                         *
