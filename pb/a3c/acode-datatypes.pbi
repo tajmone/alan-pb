@@ -1,4 +1,4 @@
-﻿; "ACodeHeader.pbi" v0.2.0 | 2022/01/29 | PureBASIC 5.73 LTS | ALAN 3.0beta8
+﻿; "acode-datatypes.pbi" v0.2.1 | 2022/01/31 | PureBASIC 5.73 LTS | ALAN 3.0beta8
 ; ==============================================================================
 ;                                  ACode Types
 ; ==============================================================================
@@ -10,8 +10,6 @@
 ; Aset      -> u32 -> ACODE Set value
 ; Aword     -> u32 -> ACODE word
 ; CodeValue -> i32 -> Definition for the packing process
-
-#szAword = SizeOf(Long)
 
 ; NOTE: Here's the major 32->64bit problem: Aptrs are 32 bit to fit into the
 ;       32-bit structure of the Amachine, but sometimes this is used to store
@@ -83,7 +81,5 @@ Structure ACodeHeader
   ifids.l              ; [Aaddr] Address to IFIDS
   prompt.l             ; [Aaddr]
 EndStructure
-
-#szHeader = SizeOf(ACodeHeader)
 
 ; /// EOF ///

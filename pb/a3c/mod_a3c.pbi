@@ -27,8 +27,8 @@ DeclareModule a3c
 EndDeclareModule
 
 Module a3c
-  XIncludeFile "macros.pbi"
-  XIncludeFile "ACodeHeader.pbi"
+  XIncludeFile "acode-datatypes.pbi"
+  XIncludeFile "helpers.pbi"
 
   ;-/// Private Procedures Declarations
   Declare.i CalculateCRC(*memPointer, memSzAWords.i)
@@ -142,11 +142,11 @@ Module a3c
 
   ;-/// Private Procedures
 
+  ; ------------------------------------------------------
+  ; Calculate the checksum of the memory range starting at
+  ; *memPointer, with size memSzAWords (number of AWords).
+  ; ------------------------------------------------------
   Procedure.i CalculateCRC(*memPointer, memSzAWords.i)
-    ; ------------------------------------------------------
-    ; Calculate the checksum of the memory range starting at
-    ; *memPointer, with size memSzAWords (number of AWords).
-    ; ------------------------------------------------------
     crc.i = 0
     For i = 0 To memSzAWords - 1
       crc + (PeekL(*memPointer) & $FF)
@@ -158,12 +158,12 @@ Module a3c
     ProcedureReturn crc
   EndProcedure
 
+  ; --------------------------------------------------------
+  ; Validate the checksum of the ACode section, which begins
+  ; at the end of the Header section and ends at the offset
+  ; stored in ACodeHeader.size (expressed in AWords).
+  ; --------------------------------------------------------
   Procedure.i ValidateACodeCRC()
-    ; --------------------------------------------------------
-    ; Validate the checksum of the ACode section, which begins
-    ; at the end of the Header section and ends at the offset
-    ; stored in ACodeHeader.size (expressed in AWords).
-    ; --------------------------------------------------------
     Shared *SFHeader, *a3cMem
     With *SFHeader
       *ACodeStart = *a3cMem + #szHeader
@@ -193,12 +193,12 @@ Module a3c
                 (((*Aword\l)>>24)&$FF))
   EndProcedure
 
+  ; ----------------------------------------------------------------
+  ; Reverse all AWords in the memorized storyfile Header section,
+  ; except the ALAN tag and the version marking, which are sequences
+  ; of four ASCII chars.
+  ; ----------------------------------------------------------------
   Procedure ReverseHeader(*header.ACodeHeader)
-    ; ----------------------------------------------------------------
-    ; Reverse all AWords in the memorized storyfile Header section,
-    ; except the ALAN tag and the version marking, which are sequences
-    ; of four ASCII chars.
-    ; ----------------------------------------------------------------
     For i = SizeOf(long) * 2 To #szHeader Step SizeOf(long)
       ReverseAword(*header + i)
     Next
@@ -206,11 +206,11 @@ Module a3c
 
   ;- // Compiler Version Procedures
 
+  ; --------------------------------------------------------------
+  ; Extract the adventure compiler version marking from the Header
+  ; and return it as a string (UCS-2 format).
+  ; --------------------------------------------------------------
   Procedure.s GetAlanVersionString()
-    ; --------------------------------------------------------------
-    ; Extract the adventure compiler version marking from the Header
-    ; and return it as a string (UCS-2 format).
-    ; --------------------------------------------------------------
     Shared *SFHeader
     With *SFHeader
       a3cVer.s = StrU(\version[0]) + "." +  ; -> Version
@@ -232,18 +232,20 @@ Module a3c
     ProcedureReturn a3cVer
   EndProcedure
 
+  ; --------------------------------------------------
+  ; Extract and return the Correction segment from the
+  ; ALAN compiler version marking in Header.version[].
+  ; --------------------------------------------------
   Procedure.i Correction()
-    ; --------------------------------------------------
-    ; Extract and return the Correction segment from the
-    ; ALAN compiler version marking in Header.version[].
-    ; --------------------------------------------------
     Shared *SFHeader
     ProcedureReturn *SFHeader\version[2] & $FF
   EndProcedure
 
+  ; ----------------------------------------------
+  ; Check whether the adventure was compiled using
+  ; ALAN 3.0alpha (any correction).
+  ; ----------------------------------------------
   Procedure.i Is3_0Alpha()
-    ; ALAN 3.0alpha (any correction).
-    ; ----------------------------------------------
     Shared *SFHeader
     With *SFHeader
       ProcedureReturn Bool((\version[0] & $FF) = 3 And
@@ -252,11 +254,11 @@ Module a3c
     EndWith
   EndProcedure
 
+  ; ----------------------------------------------
+  ; Check whether the adventure was compiled using
+  ; ALAN 3.0beta (any correction).
+  ; ----------------------------------------------
   Procedure.i Is3_0Beta()
-    ; ----------------------------------------------
-    ; Check whether the adventure was compiled using
-    ; ALAN 3.0beta (any correction).
-    ; ----------------------------------------------
     Shared *SFHeader
     With *SFHeader
       ProcedureReturn Bool((\version[0] & $FF) = 3 And
@@ -265,11 +267,11 @@ Module a3c
     EndWith
   EndProcedure
 
+  ; ----------------------------------------------
+  ; Check whether the adventure was compiled using
+  ; ALAN < 3.0beta2.
+  ; ----------------------------------------------
   Procedure.i IsPreBeta2()
-    ; ----------------------------------------------
-    ; Check whether the adventure was compiled using
-    ; ALAN < 3.0beta2.
-    ; ----------------------------------------------
     ProcedureReturn Bool(Is3_0Alpha() Or
                          (Is3_0Beta() And
                           Correction() <= 1))
