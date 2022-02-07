@@ -23,6 +23,7 @@ Repository created in January 2020 by [Tristano Ajmone].
 - [Building](#building)
 - [License](#license)
 - [Third Party Assets](#third-party-assets)
+    - [ARun Sources](#arun-sources)
 - [Reference Links](#reference-links)
 
 <!-- /MarkdownTOC -->
@@ -34,6 +35,7 @@ Repository created in January 2020 by [Tristano Ajmone].
 - [`/_assets/`][_assets/] — project assets:
     + [`/rake/`][rake/] — custom [Rake] helpers.
 - [`/adventures/demos/`][demos/] — source adventures for testing.
+- [`/arun-c/`][arun-c/] — ARun 3.0beta8 C sources.
 - [`/pb/`][pb/] — PureBasic sources:
     + [`/a3c/`][a3c/] — Storyfiles parsing.
 
@@ -62,7 +64,7 @@ For more info on the available tasks:
 
 - [`LICENSE`][LICENSE]
 
-Copyright © 2022 [Tristano Ajmone], released under the terms of the MIT License.
+Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the MIT License.
 
 ```
 MIT License
@@ -95,6 +97,13 @@ This repository also contains some demo adventures written by third parties.
 For full credits and info on their authors, copyright and license, see the README file in their folder:
 
 - [`/adventures/demos/`][demos/]
+
+## ARun Sources
+
+- [`/arun-c/`][arun-c/]
+
+The original C sources of the ARun interpreter are &copy; Copyright of the original authors of [ALAN IF], and are released under the [Artistic License 2.0][COPYING].
+More info is available in the README document inside the [`/arun-c/`][arun-c/] subfolder.
 
 -------------------------------------------------------------------------------
 
@@ -157,13 +166,16 @@ For full credits and info on their authors, copyright and license, see the READM
 <!-- project files & folders -->
 
 [_assets/]: ./_assets/ "Navigate to assets folder"
+[arun-c/]: ./arun-c/ "Navigate to ARun C sources folder"
 [demos/]: ./adventures/demos/ "Navigate to demo adventures folder"
+[rake/]: ./_assets/rake/ "Navigate to assets folder"
 [rake/]: ./_assets/rake/ "Navigate to assets folder"
 
 [pb/]: ./pb/ "Navigate to PureBasic sources folder"
 [a3c/]: ./pb/a3c/ "Navigate to '/pb/a3c/' folder"
 
 [LICENSE]: ./LICENSE "View MIT License"
+[COPYING]: ./arun-c/COPYING "Read the Artistic License 2.0"
 
 <!-- badges -->
 

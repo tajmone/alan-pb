@@ -44,6 +44,22 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 
+## C Source Files
+#################
+[*.{c,h}]
+indent_style = space
+indent_size = unset
+end_of_line = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+; C-style doc comments:
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
+
+
 ## Ruby
 #######
 [{*.rb,*.gemspec,*.rake,Rakefile,rakefile}]
@@ -84,6 +100,23 @@ indent_style = space
 indent_size = unset
 end_of_line = unset
 charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+## Plain-Text Files
+###################
+[*.txt]
+indent_style = space
+indent_size = unset
+end_of_line = unset
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[{LICENSE,COPYING}]
+indent_size = unset
+indent_style = space
+end_of_line = unset
 trim_trailing_whitespace = true
 insert_final_newline = true
 
