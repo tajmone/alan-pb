@@ -1,6 +1,6 @@
-﻿; "acode-datatypes.pbi" v0.2.1 | 2022/01/31 | PureBASIC 5.73 LTS | ALAN 3.0beta8
+﻿; "acode-datatypes.pbi" v0.2.2 | 2022/02/07 | PureBASIC 5.73 LTS | ALAN 3.0beta8
 ; ==============================================================================
-;                                  ACode Types
+;-                                 ACode Types
 ; ==============================================================================
 
 ; Aaddr     -> u32 -> ACODE address in Amemory
@@ -18,7 +18,7 @@
 ;       translated through fromAptr() in memory.c
 
 ; ==============================================================================
-;                                  ACode Header
+;-                                 ACode Header
 ; ==============================================================================
 
 Structure ACodeHeader
@@ -81,5 +81,60 @@ Structure ACodeHeader
   ifids.l              ; [Aaddr] Address to IFIDS
   prompt.l             ; [Aaddr]
 EndStructure
+
+; ==============================================================================
+;-                            AMachine Word Classes
+; ==============================================================================
+
+;- Word Classes -> constants
+Enumeration
+  #SYNONYM_WORD
+  #ADJECTIVE_WORD
+  #ALL_WORD
+  #EXCEPT_WORD
+  #CONJUNCTION_WORD
+  #PREPOSITION_WORD
+  #DIRECTION_WORD
+  #IT_WORD
+  #NOISE_WORD
+  #NOUN_WORD
+  #THEM_WORD
+  #VERB_WORD
+  #PRONOUN_WORD
+  #WRD_CLASSES
+EndEnumeration
+
+;- Word Classes -> bit positions
+EnumerationBinary
+  #SYNONYM_BIT
+  #ADJECTIVE_BIT
+  #ALL_BIT
+  #EXCEPT_BIT
+  #CONJUNCTION_BIT
+  #PREPOSITION_BIT
+  #DIRECTION_BIT
+  #IT_BIT
+  #NOISE_BIT
+  #NOUN_BIT
+  #THEM_BIT
+  #VERB_BIT
+  #PRONOUN_BIT
+EndEnumeration
+
+; ==============================================================================
+;-                          AMachine Table Entry Types
+; ==============================================================================
+
+;-/// Dictionary
+
+Structure DictionaryEntry
+  string.l        ; [Aaddr] ACode address to string
+  classBits.l     ; [Aword] Word class
+  code.l          ; [Aword]
+  adjectiveRefs.l ; [Aaddr] Address to reference list
+  nounRefs.l      ; [Aaddr] Address to reference list
+  pronounRefs.l   ; [Aaddr] Address to reference list
+EndStructure
+
 
 ; /// EOF ///
