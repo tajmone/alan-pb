@@ -104,6 +104,18 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 
+## AsciiDoc
+###########
+[*.{adoc,asc,asciidoc}]
+indent_size = unset
+indent_style = space
+end_of_line = unset
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+[docs-src/_attributes-header.adoc]
+insert_final_newline = false
+
 ## Plain-Text Files
 ###################
 [*.txt]

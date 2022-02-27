@@ -1,0 +1,9 @@
+[preface]
+= Overview
+
+ALAN{nbsp}3 stores compiled adventures in an `.a3c` file; if the adventure contains multimedia files, these are stored separately in an additional `.a3r` file bearing the same name as the former.
+
+The `.a3c` file is the storyfile proper, since it contains all the adventure code and text required to play the game, whereas the `.a3r` resource file only contains the multimedia files, which are ignored when playing with a text-only interpreter.
+
+NOTE: An adventure will still work if you lose its `.a3r` resource file, even in a graphic interpreter like WinARun.
+In absence of the required resource file, any multimedia statements in the game, like `Show` and `Play`, will be silently ignored by the interpreter.

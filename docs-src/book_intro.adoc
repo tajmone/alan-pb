@@ -1,0 +1,33 @@
+[preface]
+= Introduction
+
+:Skein: http://inform7.com/book/WI_1_7.html[Skein^, title="Writing with Inform » §1.7. The Skein"]
+:Inform7: http://inform7.com/[Inform{nbsp}7^, title="Inform 7 website"]
+
+Embarking on the adventure of creating a PureBasic version of the ARun interpreter was a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.
+
+But there are also practical reasons for doing so, for I always wanted to create an ALAN version of {Inform7}`'s {Skein} tool along with an ALAN visual debugger -- two projects which could benefit from PureBasic's cross-platform GUI components.
+If I succeed in creating either one of these tools, the ARun PureBasic codebase could lead to a dedicated ALAN IDE written entirely in PureBasic.
+
+Since these goals are still far from reach, for the time being this project will offer me a change to document ARun's design and the ALAN storyfile format (none of which are currently documented).
+
+
+== Methodology and Conventions
+
+In the course of this book I'll try to describe the inner workings of ARun in a language agnostic way, in order to simplify creating an ALAN interpreter in any language.
+At the same time, I shall provide references to the original C sources of ARun, including code excerpts, based on the assumption that to fully understand ARun it's necessary to study its source code.
+Finally, since this document was created in relation to my PureBasic port of ARun, I shall also add PureBasic specific notes and code examples, when needed.
+
+
+== ARun {revnumber}
+
+All references to the upstream ARun code, and excerpts thereof, refer to ARun v{revnumber}.
+The upstream ARun v{revnumber} sources can be viewed on GitHub at:
+
+* https://github.com/alan-if/alan/tree/v{revnumber}/interpreter
+
+This decision to stick with a specific version is motivated by the fact that I wanted to have a fixed codebase to work on, without having to deal with upstream code changes and their integration in the book.
+
+Although this might be a limiting choice in the long run, I'm not expecting to switch to another ARun version until it reaches v3.0 stable release, or unless its source code undergoes major changes (which is fairly unlikely right now).
+
+The aim of this book is to introduce the reader to the inner workings of ARun, its data structures, the Amachine, etc.; having learnt these, he/she should be able to easily work with the latest upstream source code, regardless of any new changes to it.

@@ -1,0 +1,109 @@
+[appendix]
+= The ACode Header
+
+The ACode Header is a data structure found at the beginning of an `.a3c` storyfile.
+All its members are four bytes in size.
+
+In the course of the Alpha and Beta development stage, new elements were added to the ACode header, leading to three different possible header structures, depending on the compiler version used:
+
+[%autowidth.stretch]
+[cols="2*<m,^d,<a"]
+|==============================================================================
+| structure          | version     | bytes sz | missing members
+
+| ACodeHeader        | >= 3.0beta2 | 200      | _none_
+| Pre3_0beta2Header  | < 3.0beta2  | 196      | `prompt` (last)
+| Pre3_0alpha5Header | < 3.0alpha5 | 192      |  `ifids` and `prompt` (last two)
+|==============================================================================
+
+ALAN interpreters should check the `version` value to determine which compiler version an adventure was created with, and then use the matching header structure for that version.
+
+
+== Latest Header
+
+The current default header has 50 members, for a total size of 200 bytes.
+
+The `ACodeHeader` structure is defined in {src_ACodeHeader}.
+
+[%autowidth.stretch]
+[cols="^m,2*<m,<d"]
+|==============================================================================
+4+^h| _Important info_
+
+h| offset h| name h| type h| description
+| $00 | tag     | char[4] | "`ALAN`"
+| $04 | version | char[4] | Version of compiler
+| $08 | uid     | Aword   | Unique ID of the compiled game
+| $0C | size    | Aword   | Size of ACD-file in Awords
+
+4+^h| _Options_
+h| offset h| name h| type h| description
+| $10 | pack         | Abool | Is the text packed and encoded?
+| $14 | stringOffset | Aword | Offset to string data in game file
+| $18 | pageLength   | Aword | Length of a displayed page
+| $1C | pageWidth    | Aword | Width of a displayed page
+| $20 | debug        | Aword | Option: debug
+
+4+^h| _Data structures_
+h| offset h| name h| type h| description
+| $24 | classTableAddress     | Aaddr |
+| $28 | classMax              | Aword |
+| $2C | entityClassId         | Aword |
+| $30 | thingClassId          | Aword |
+| $34 | objectClassId         | Aword |
+| $38 | locationClassId       | Aword |
+| $3C | actorClassId          | Aword |
+| $40 | literalClassId        | Aword |
+| $44 | integerClassId        | Aword |
+| $48 | stringClassId         | Aword |
+| $4C | instanceTableAddress  | Aaddr | Instance table
+| $50 | instanceMax           | Aword | Highest number of an instance
+| $54 | theHero               | Aword | The hero instance code (ID)
+| $58 | containerTableAddress | Aaddr |
+| $5C | containerMax          | Aword |
+| $60 | scriptTableAddress    | Aaddr |
+| $64 | scriptMax             | Aword |
+| $68 | eventTableAddress     | Aaddr |
+| $6C | eventMax              | Aword |
+| $70 | syntaxTableAddress    | Aaddr |
+| $74 | parameterMapAddress   | Aaddr |
+| $78 | syntaxMax             | Aword |
+| $7C | dictionary            | Aaddr |
+| $80 | verbTableAddress      | Aaddr |
+| $84 | ruleTableAddress      | Aaddr |
+| $88 | messageTableAddress   | Aaddr |
+
+4+^h| _Miscellaneous_
+h| offset h| name h| type h| description
+| $8C | attributesAreaSize | Aint  | Size of attribute data area in Awords
+| $90 | maxParameters      | Aint  | Maximum number of parameters in any syntax
+| $94 | stringInitTable    | Aaddr | String init table address
+| $98 | setInitTable       | Aaddr | Set init table address
+| $9C | start              | Aaddr | Address to Start code
+| $A0 | maximumScore       | Aword | Maximum score
+| $A4 | scores             | Aaddr | Score table
+| $A8 | scoreCount         | Aint  | Max index into scores table
+| $AC | sourceFileTable    | Aaddr | Table of fpos/len for source filenames
+| $B0 | sourceLineTable    | Aaddr | Table of available source lines to break on
+| $B4 | freq               | Aaddr | Address to Char freq's for coding
+| $B8 | acdcrc             | Aword | Checksum for ACD code (excl. hdr)
+| $BC | txtcrc             | Aword | Checksum for text data file
+| $C0 | ifids              | Aaddr | Address to IFIDs
+| $C4 | prompt             | Aaddr |
+|==============================================================================
+
+
+== Pre 3.0beta2 Header
+
+The ACode Header in adventures compiled with ALAN versions before `3.0beta2` does not contain the last `prompt` member, so it's 4 bytes shorter (i.e. one Aword).
+
+When ARun detects that and adventure was compiled with ALAN `<3.0beta2` and `>=3.0alpha5` it uses the `Pre3_0beta2Header` structure instead of `ACodeHeader`.
+The definition of the `Pre3_0beta2Header` structure can be found in {src_Pre3_0beta2Header}.
+
+
+== Pre 3.0alpha5 Header
+
+In adventures compiled with ALAN versions before `3.0alpha5` the ACode Header doesn't contain the last two members, `ifids` and `prompt`, so it's 8 bytes shorter (i.e. two Awords).
+
+When ARun detects that and adventure was compiled with ALAN `<3.0alpha5` it uses the `Pre3_0alpha5Header` structure instead of `ACodeHeader`.
+The definition of the `Pre3_0alpha5Header` structure can be found in {src_Pre3_0alpha5Header}.

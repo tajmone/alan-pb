@@ -1,6 +1,6 @@
 # Rake Helper Modules
 
-Some custom Ruby modules for automating ALAN projects and repositories via Rake, taken from the [alan-i18n] project.
+Some custom Ruby modules for automating ALAN projects and repositories via Rake, taken and adapted from the [alan-i18n] project.
 
 For more info, see:
 

@@ -1,0 +1,41 @@
+= ARun PureBasic
+:author: Tristano Ajmone
+:email: <tajmone@gmail.com>
+:revdate: 2022-02-27
+:revnumber: 3.0beta8
+:revremark: WIP
+:version-label: ALAN
+include::_attributes-header.adoc[]
+
+include::_attributes-custom.adoc[]
+
+// Preamble
+// ========
+
+My developer notes on porting ARun to PureBasic.
+
+.Copyright and License
+****
+This book is Copyright (C) 2022 by {tajmone}, released under the {ccbyncsa} license.
+
+[discrete]
+==== You are free to:
+
+* *Share* -- copy and redistribute the material in any medium or format.
+* *Adapt* -- remix, transform, and build upon the material.
+
+[discrete]
+==== Under the following terms:
+
+* *Attribution* -- You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+* *NonCommercial* -- You may not use the material for commercial purposes.
+* *ShareAlike* -- If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+****
+
+
+include::book_intro.adoc[]
+
+include::part1.adoc[]
+
+// EOF //

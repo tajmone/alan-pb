@@ -21,7 +21,8 @@ Repository created in January 2020 by [Tristano Ajmone].
 
 - [Repository Map](#repository-map)
 - [Building](#building)
-- [License](#license)
+- [Code License](#code-license)
+- [Book License](#book-license)
 - [Third Party Assets](#third-party-assets)
     - [ARun Sources](#arun-sources)
 - [Reference Links](#reference-links)
@@ -36,6 +37,9 @@ Repository created in January 2020 by [Tristano Ajmone].
     + [`/rake/`][rake/] — custom [Rake] helpers.
 - [`/adventures/demos/`][demos/] — source adventures for testing.
 - [`/arun-c/`][arun-c/] — ARun 3.0beta8 C sources.
+- [`/docs/`][docs/] — HTML documentation:
+    + [`ARun-PureBasic.html`][ARunPB html] ([Live HTML Preview][ARunPB live])
+- [`/docs-src/`][docs-src/] — AsciiDoc sources.
 - [`/pb/`][pb/] — PureBasic sources:
     + [`/a3c/`][a3c/] — Storyfiles parsing.
 
@@ -60,11 +64,11 @@ For more info on the available tasks:
     rake -T
 
 
-# License
+# Code License
 
 - [`LICENSE`][LICENSE]
 
-Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the MIT License.
+All the PureBasic code in this repository (unless otherwise specified) is Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the MIT License.
 
 ```
 MIT License
@@ -90,6 +94,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ```
+
+The above copyright and license notice does not apply to the [_ARun PureBasic_ book] found in this repository (also by Tristano Ajmone), nor to any [third party assets and sources].
+
+
+# Book License
+
+- [`/docs/`][docs/]
+- [`/docs-src/`][docs-src/]
+
+The [_ARun PureBasic_][ARunPB live] book is Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the [CC BY-NC-SA 4.0] license.
+
 
 # Third Party Assets
 
@@ -134,6 +149,10 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
                                REFERENCE LINKS
 ------------------------------------------------------------------------------>
 
+[CC BY-NC-SA 4.0]: https://creativecommons.org/licenses/by-nc-sa/4.0/ "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+[_ARun PureBasic_ book]: #book-license "Learn more about the book license"
+[third party assets and sources]: #third-party-assets "Learn more about third party assets and their licenses"
+
 <!-- ALAN -->
 
 [Alan]: https://www.alanif.se/ "Visit the Alan website"
@@ -168,6 +187,8 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 [_assets/]: ./_assets/ "Navigate to assets folder"
 [arun-c/]: ./arun-c/ "Navigate to ARun C sources folder"
 [demos/]: ./adventures/demos/ "Navigate to demo adventures folder"
+[docs-src/]: ./docs-src/ "Navigate to AsciiDoc sources folder"
+[docs/]: ./docs/ "Navigate to HTML docs folder"
 [rake/]: ./_assets/rake/ "Navigate to assets folder"
 [rake/]: ./_assets/rake/ "Navigate to assets folder"
 
@@ -176,6 +197,9 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 
 [LICENSE]: ./LICENSE "View MIT License"
 [COPYING]: ./arun-c/COPYING "Read the Artistic License 2.0"
+
+[ARunPB html]: ./docs/ARun-PureBasic.html "ARun-PureBasic.html (local preview)"
+[ARunPB live]: https://htmlpreview.github.io/?https://github.com/tajmone/alan-pb/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
 
 <!-- badges -->
 

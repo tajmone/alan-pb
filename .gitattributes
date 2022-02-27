@@ -46,12 +46,20 @@
 
 ## Ruby Files
 #############
-[attr]Ruby text eol=lf
+[attr]Ruby text eol=lf    linguist-detectable=true
 *.rb        Ruby
 *.rake      Ruby
 *.gemspec   Ruby
 Rakefile    Ruby
 rakefile    Ruby
+
+
+## AsciiDoc
+###########
+[attr]AsciiDoc text
+*.adoc       AsciiDoc
+*.asc        AsciiDoc
+*.asciidoc   AsciiDoc
 
 
 ## Shell Scripts

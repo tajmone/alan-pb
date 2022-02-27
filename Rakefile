@@ -1,6 +1,14 @@
-# "Rakefile" v0.1.0 | 2022/01/15 | by Tristano Ajmone
+# "Rakefile" v0.1.1 | 2022/02/26 | by Tristano Ajmone
 
 require './_assets/rake/globals.rb'
+require './_assets/rake/asciidoc.rb'
+
+# ==============================================================================
+# --------------------{  P R O J E C T   S E T T I N G S  }---------------------
+# ==============================================================================
+
+DOCS_DIR = 'docs'
+DOCS_DIR_ABS = File.expand_path(DOCS_DIR)
 
 # ==============================================================================
 # ------------------------{  R U B Y   M E T H O D S  }-------------------------
@@ -31,7 +39,7 @@ end
 # -------------------------------{  T A S K S  }--------------------------------
 # ==============================================================================
 
-task :default => :demos
+task :default => [:demos, :docs]
 
 ## Clean & Clobber
 ##################
@@ -39,7 +47,8 @@ require 'rake/clean'
 CLOBBER.include('**/*.a3c',
                 '**/*.a3r',
                 '**/*.ifid',
-                '**/*.sav')
+                '**/*.sav',
+                'docs/*.html')
 
 ## Demo Adventures
 ##################
@@ -51,6 +60,29 @@ DEMOS = FileList['adventures/demos/*.alan'].each do |adv_src|
   adv_bin = adv_src.pathmap("%X") + ".a3c"
   task :demos => adv_bin
   file adv_bin => adv_src
+end
+
+## Documentation
+################
+
+desc "Build documentation"
+task :docs => 'docs/ARun-PureBasic.html'
+
+ADOC_OPTS = <<~HEREDOC
+  --failure-level WARN \
+  --verbose \
+  --timings \
+  --safe-mode unsafe \
+  -a source-highlighter=rouge \
+  -a rouge-style=thankful_eyes \
+  -a data-uri \
+  -D #{DOCS_DIR_ABS}
+HEREDOC
+
+ADOC_DEPS = FileList['docs-src/*.{asciidoc,adoc}']
+
+file 'docs/ARun-PureBasic.html' => ADOC_DEPS do
+  AsciidoctorConvert('docs-src/ARun-PureBasic.asciidoc', ADOC_OPTS)
 end
 
 # ==============================================================================
