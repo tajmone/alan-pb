@@ -1,4 +1,4 @@
-# "Rakefile" v0.1.1 | 2022/02/26 | by Tristano Ajmone
+# "Rakefile" v0.2.0 | 2022/02/28 | by Tristano Ajmone
 
 require './_assets/rake/globals.rb'
 require './_assets/rake/asciidoc.rb'
@@ -7,6 +7,7 @@ require './_assets/rake/asciidoc.rb'
 # --------------------{  P R O J E C T   S E T T I N G S  }---------------------
 # ==============================================================================
 
+ADOC_DIR = File.expand_path('_assets/adoc/')
 DOCS_DIR = 'docs'
 DOCS_DIR_ABS = File.expand_path(DOCS_DIR)
 
@@ -73,6 +74,7 @@ ADOC_OPTS = <<~HEREDOC
   --verbose \
   --timings \
   --safe-mode unsafe \
+  -r #{ADOC_DIR}/arun-src-linker.rb \
   -a source-highlighter=rouge \
   -a rouge-style=thankful_eyes \
   -a data-uri \

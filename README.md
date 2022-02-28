@@ -34,6 +34,7 @@ Repository created in January 2020 by [Tristano Ajmone].
 # Repository Map
 
 - [`/_assets/`][_assets/] — project assets:
+    + [`/adoc/`][adoc/] — custom [Asciidoctor] extensions and assets.
     + [`/rake/`][rake/] — custom [Rake] helpers.
 - [`/adventures/demos/`][demos/] — source adventures for testing.
 - [`/arun-c/`][arun-c/] — ARun 3.0beta8 C sources.
@@ -176,6 +177,7 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 
 <!-- 3rd party tools & services -->
 
+[Asciidoctor]: https://github.com/asciidoctor/asciidoctor "Visit Asciidoctor Ruby) repository"
 [Eclint]: https://www.npmjs.com/package/eclint "EClint page at NPM"
 [EditorConfig]: https://editorconfig.org "Visit the EditorConfig project website"
 [Sublime Text 4]: https://www.sublimetext.com "Visit Sublime Text website"
@@ -185,12 +187,13 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 <!-- project files & folders -->
 
 [_assets/]: ./_assets/ "Navigate to assets folder"
+[adoc/]: ./_assets/adoc/ "Navigate to Asciidoctor assets folder"
+[rake/]: ./_assets/rake/ "Navigate to Rake assets folder"
+
 [arun-c/]: ./arun-c/ "Navigate to ARun C sources folder"
 [demos/]: ./adventures/demos/ "Navigate to demo adventures folder"
 [docs-src/]: ./docs-src/ "Navigate to AsciiDoc sources folder"
 [docs/]: ./docs/ "Navigate to HTML docs folder"
-[rake/]: ./_assets/rake/ "Navigate to assets folder"
-[rake/]: ./_assets/rake/ "Navigate to assets folder"
 
 [pb/]: ./pb/ "Navigate to PureBasic sources folder"
 [a3c/]: ./pb/a3c/ "Navigate to '/pb/a3c/' folder"

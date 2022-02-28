@@ -5,11 +5,3 @@
 // Links to ARun 3.0beta8 upstream sources
 // =======================================
 :ARunSrcBase: https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/
-
-// Source files:
-:acode_h: pass:a,q[link:{ARunSrcBase}acode.h[`acode.h`^]]
-
-// Specific construct:
-:src_ACodeHeader: pass:a,q[link:{ARunSrcBase}acode.h#L477[`acode.h` (L.{nbsp}477)^]]
-:src_Pre3_0beta2Header: pass:a,q[link:{ARunSrcBase}acode.h#L534[`acode.h` (L.{nbsp}534)^]]
-:src_Pre3_0alpha5Header: pass:a,q[link:{ARunSrcBase}acode.h#L590[`acode.h` (L.{nbsp}590)^]]

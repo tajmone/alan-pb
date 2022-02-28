@@ -1,0 +1,148 @@
+= ARun Source Linker
+Tristano Ajmone <tajmone@gmail.com>
+1.0.0, 2022-02-28
+:revremark: MIT License
+:toclevels: 5
+:toc: left
+:sectnums!:
+:idprefix:
+:experimental: true
+:icons: font
+:linkattrs: true
+:reproducible: true
+:sectanchors:
+
+An Asciioctor (Ruby) extension for quick-linking ARun source files.
+
+== About
+
+The `arun-src-linker-macro.rb` is a custom Asciidoctor extension to quickly provide links to ARun sources in the `interpreter/` folder at the ALAN source repository (checkout tag `v3.0beta8`).
+
+The extension was created by
+https://github.com/tajmone[Tristano Ajmone^, title="View Tristano's profile at GitHub"]
+specifically for the *ALAN PureBasic* project documentation, which contains lots of links to ARun sources:
+
+* https://github.com/tajmone/alan-pb
+
+== Usage
+
+To enable the extension you must require it when invoking Asciidoctor via the command line, using the `-r`/`--require` option:
+
+[source,shell]
+asciidoctor \
+  -r /path-to/arun-src-linker.rb \
+  your-document.adoc
+
+
+=== Syntax
+
+Use it in your `.asciidoc` sources as any other inline macro:
+
+    arunsrc:<filename>[<optional-attributes>]
+
+were `<filename>` is a source file from the `interpreter/` folder of the ALAN
+source repository, e.g.:
+
+[source,asciidoc]
+See the arunsrc:memory.c[] source file.
+
+[example]
+See the arunsrc:memory.c[] source file.
+
+
+== Optional Attributes
+
+The allowed attributes are (in positional order and with their names):
+
+[horizontal]
+`line`  :: file line number
+`text`  :: show custom text instead of filename
+`plain` :: don't format text as inline code
+
+Attributes must be comma-separated and can be passed by position or by name:
+
+* `+arunsrc:main.c[394,load()]+`
+* `+arunsrc:main.c[line=394,text=load()]+`
+
+But unless you're omitting some initial attributes, you should simply pass them
+by position.
+
+=== Line Attribute
+
+If `<line>` is specified, the generated link will point to that specific line by exploiting GitHub code anchors via `#L<line>`, and after the filename it will print "`(L.<line>)`", e.g.
+
+
+[source,asciidoc]
+Alan types are defined in arunsrc:acode.h[10].
+
+[example]
+Alan types are defined in arunsrc:acode.h[10].
+
+unless custom text is provided via `<text>`, in which case only the line-number anchor is added.
+
+
+
+=== Text and Plain Attributes
+
+The `<text>` attribute allows replacing the filename with custom text, e.g. a function name:
+
+[source,asciidoc]
+See arunsrc:main.c[394,load()] function for more info.
+
+[example]
+See arunsrc:main.c[394,load()] function for more info.
+
+
+By default, `<filename>` and `<text>` are formatted as inline code, unless the `<plain>` attribute is specified, e.g.
+
+
+[source,asciidoc]
+See arunsrc:acode.h[10,"Alan types definitions",plain] for more info.
+
+[example]
+See arunsrc:acode.h[10,"Alan types definitions",plain] for more info.
+
+[TIP]
+===================
+The `plain` attribute can be "`activated`" by any value (i.e. non `nil`), e.g.
+
+* positionally:
+** `+arunsrc:acode.h[10,"my text",plain]+`
+** `+arunsrc:acode.h[10,"my text",true]+`
+** `+arunsrc:acode.h[10,"my text",1]+`
+* by name:
+** `+arunsrc:acode.h[plain=true]+`
+** `+arunsrc:acode.h[plain=1]+`
+** `+arunsrc:acode.h[plain="xyz"]+`
+===================
+
+WARNING: Substitutions and formatting in `<text>` won't work: custom text is passed on as raw text.
+
+
+== License
+
+The `arun-src-linker-macro.rb` extension is Copyright (C) 2022 by Tristano Ajmone, released under MIT License.
+
+................
+MIT License
+
+Copyright (c) 2022 Tristano Ajmone <tajmone@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+................

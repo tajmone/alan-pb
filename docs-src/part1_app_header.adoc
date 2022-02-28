@@ -23,7 +23,7 @@ ALAN interpreters should check the `version` value to determine which compiler v
 
 The current default header has 50 members, for a total size of 200 bytes.
 
-The `ACodeHeader` structure is defined in {src_ACodeHeader}.
+The `ACodeHeader` structure is defined in arunsrc:acode.h[477].
 
 [%autowidth.stretch]
 [cols="^m,2*<m,<d"]
@@ -98,7 +98,7 @@ h| offset h| name h| type h| description
 The ACode Header in adventures compiled with ALAN versions before `3.0beta2` does not contain the last `prompt` member, so it's 4 bytes shorter (i.e. one Aword).
 
 When ARun detects that and adventure was compiled with ALAN `<3.0beta2` and `>=3.0alpha5` it uses the `Pre3_0beta2Header` structure instead of `ACodeHeader`.
-The definition of the `Pre3_0beta2Header` structure can be found in {src_Pre3_0beta2Header}.
+The definition of the `Pre3_0beta2Header` structure can be found in arunsrc:acode.h[534].
 
 
 == Pre 3.0alpha5 Header
@@ -106,4 +106,4 @@ The definition of the `Pre3_0beta2Header` structure can be found in {src_Pre3_0b
 In adventures compiled with ALAN versions before `3.0alpha5` the ACode Header doesn't contain the last two members, `ifids` and `prompt`, so it's 8 bytes shorter (i.e. two Awords).
 
 When ARun detects that and adventure was compiled with ALAN `<3.0alpha5` it uses the `Pre3_0alpha5Header` structure instead of `ACodeHeader`.
-The definition of the `Pre3_0alpha5Header` structure can be found in {src_Pre3_0alpha5Header}.
+The definition of the `Pre3_0alpha5Header` structure can be found in arunsrc:acode.h[590].

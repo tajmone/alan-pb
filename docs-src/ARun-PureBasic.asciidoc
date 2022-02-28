@@ -1,7 +1,7 @@
 = ARun PureBasic
 :author: Tristano Ajmone
 :email: <tajmone@gmail.com>
-:revdate: 2022-02-27
+:revdate: 2022-02-28
 :revnumber: 3.0beta8
 :revremark: WIP
 :version-label: ALAN
