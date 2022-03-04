@@ -7,6 +7,9 @@ In this part we'll be looking at the ALAN storyfile format, its header and inter
 :leveloffset: +1
 
 include::part1_intro.adoc[]
+
+include::part1_memory.adoc[]
+
 include::part1_app_header.adoc[]
 
 :leveloffset: 0

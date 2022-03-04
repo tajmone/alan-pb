@@ -1,0 +1,65 @@
+= Memory Management
+
+WARNING: This chapter is still a rough draft.
+For the time being, it's just a collection of references.
+
+The ARun interpreter doesn't load into memory the whole `.a3c` file, just the header and code sections (aka "`the ACD`"), leaving out the text/strings section which is accessed from disk on demand.
+
+[NOTE]
+=========================
+ARun doesn't load the text section into memory for portability reasons, i.e. so that its machine-independent source code can also be used on phones or other devices with limited memory.
+
+When building an ALAN interpreter for desktop computers, where RAM is not a problem, implementers are free to load whole `.a3c` file into memory, since even the largest adventure will be fairly small size compared to a PDF document or an high resolution image.
+=========================
+
+== The ACD Memory Array
+
+The ACD (`ACodeHeader` + `ACode` sections) is loaded from disk and stored in `*memory`, an array of ``Aword``s:
+
+.arunsrc:memory.h[25]
+[source,c]
+include::{arun_c}/memory.h[lines=25]
+
+For more info:
+
+* For the code that loads the ACD into `*memory`, see arunsrc:main.c[213,loadAndCheckMemory()]
+
+
+== The In-Memory ACodeHeader
+
+The `*header` pointer is an `ACodeHeader` structured pointer:
+
+.arunsrc:memory.h[26]
+[source,c]
+include::{arun_c}/memory.h[lines=26]
+
+After loading the ACD in `*memory[]`, the `*header` pointer is made to point a the beginning of `*memory` -- see arunsrc:main.c[197,setupHeader()].
+
+
+== Aaddr Offsets
+
+Within the storyfile, addresses are represented via the `Aaddr` ALAN type.
+An `Aaddr` is an absolute offset (in ``Aword``s) from the beginning of the `.a3c` file.
+When used in reference to an in-memory location, an `Aaddr` value is equivalent to its index entry in the `*memory` array -- e.g. `*memory[Aaddr]`.
+
+
+== C Macros
+
+ARun makes frequent use of some macro helpers to handle conversions between storyfile offsets and memory pointers, and vice versa.
+The following macros are defined in arunsrc:types.h[35]:
+
+[source,c]
+include::{arun_c}/types.h[lines=35..38]
+
+
+[horizontal]
+`pointerTo(Aaddr)` :::
+converts an `Aaddr` offset into its true pointer to the `*memory[Aaddr]` array index.
+
+`addressOf(&memory)` :::
+converts the real address of a `*memory[]` entry to an `Aaddr` offset.
+
+`stringAt(Aaddr)` :::
+converts an `Aaddr` offset into its true string pointer to the `*memory[Aaddr]` array index.
+
+Implementations of an ALAN interpreter in other languages will need similar mechanisms of addresses translation, according to the semantics of the target language.
