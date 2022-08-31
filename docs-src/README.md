@@ -1,4 +1,4 @@
-# ALAN PureBasic Docs Sources
+# ARun Playground Docs Sources
 
 AsciiDoc sources of the project documentation found in the [`/docs/`][docs/] folder:
 
@@ -43,7 +43,7 @@ For more info and usage instructions, see:
 <!-- project files & folders -->
 
 [ARunPB html]: ../docs/ARun-PureBasic.html "ARun-PureBasic.html (local preview)"
-[ARunPB live]: https://htmlpreview.github.io/?https://github.com/tajmone/alan-pb/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
+[ARunPB live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
 
 [docs/]: ../docs/ "Navigate to HTML docs folder"
 
@@ -51,6 +51,6 @@ For more info and usage instructions, see:
 
 [arun rb]: ../_assets/adoc/arun-src-linker.rb
 [arun html]: ../_assets/adoc/arun-src-linker-info.html
-[arun live]: https://htmlpreview.github.io/?https://github.com/tajmone/alan-pb/blob/main/_assets/adoc/arun-src-linker-info.html "Asciidoctor ARun extension (Live HTML Preview)"
+[arun live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/_assets/adoc/arun-src-linker-info.html "Asciidoctor ARun extension (Live HTML Preview)"
 
 <!-- EOF -->

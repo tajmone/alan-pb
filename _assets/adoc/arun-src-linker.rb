@@ -2,9 +2,9 @@
 ================================================================================
 An AsciiDoc extension providing an inline macro to easily generate links to ARun
 sources at ALAN repository (checkout tag 'v3.0beta8'), specifically created for
-the documentation of Alan Purebasic:
+the documentation of the ARun Playground project:
 
-https://github.com/tajmone/alan-pb
+https://github.com/tajmone/arun-playground
 
 It's designed to work with the HTML format only, results for other backends
 were not tested nor taken care of.

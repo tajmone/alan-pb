@@ -4,13 +4,15 @@
 [![Ruby version][ruby badge]][ruby link]&nbsp;
 [![License][license badge]][LICENSE]
 
-# ALAN PureBasic
+# ARun Playground
 
-My personal playground for experimenting with [ALAN IF] in [PureBASIC].
+My personal playground for experimenting with [ALAN IF] adventures storyfile format and game interpreters in various programming languages: [PureBASIC].
 
-- https://github.com/tajmone/alan-pb
+- https://github.com/tajmone/arun-playground
 
 Repository created in January 2020 by [Tristano Ajmone].
+
+> **NOTE** — The repository was initially named `alan-pb`, since its main focus was on the [PureBASIC] language; in 2022/08/31 it was renamed to `arun-playground` to include other languages too.
 
 -----
 
@@ -202,12 +204,12 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 [COPYING]: ./arun-c/COPYING "Read the Artistic License 2.0"
 
 [ARunPB html]: ./docs/ARun-PureBasic.html "ARun-PureBasic.html (local preview)"
-[ARunPB live]: https://htmlpreview.github.io/?https://github.com/tajmone/alan-pb/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
+[ARunPB live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
 
 <!-- badges -->
 
-[travis badge]: https://img.shields.io/travis/com/tajmone/alan-pb/main?logo=travis "Travis CI: EditorConfig validation status"
-[travis link]: https://app.travis-ci.com/github/tajmone/alan-pb
+[travis badge]: https://img.shields.io/travis/com/tajmone/arun-playground/main?logo=travis "Travis CI: EditorConfig validation status"
+[travis link]: https://app.travis-ci.com/github/tajmone/arun-playground
 [alan badge]: https://img.shields.io/badge/ALAN-3.0beta8-yellow
 [alan link]: https://www.alanif.se/download-alan-v3/development-kits/development-kits-3-0beta8 "Tested with Alan SDK 3.0beta8"
 [pb badge]: https://img.shields.io/badge/PureBasic-5.73-yellow

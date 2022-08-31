@@ -20,9 +20,9 @@ The `arun-src-linker-macro.rb` is a custom Asciidoctor extension to quickly prov
 
 The extension was created by
 https://github.com/tajmone[Tristano Ajmone^, title="View Tristano's profile at GitHub"]
-specifically for the *ALAN PureBasic* project documentation, which contains lots of links to ARun sources:
+specifically for the *ARun Playground* project documentation, which contains lots of links to ARun sources:
 
-* https://github.com/tajmone/alan-pb
+* https://github.com/tajmone/arun-playground
 
 == Usage
 

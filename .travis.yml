@@ -1,7 +1,7 @@
-########################################
-#  ALAN-IF PureBasic                   #
-#  https://github.com/tajmone/alan-pb  #
-########################################
+################################################
+#  ALAN-IF ARun Playground                     #
+#  https://github.com/tajmone/arun-playground  #
+################################################
 
 dist: trusty
 
