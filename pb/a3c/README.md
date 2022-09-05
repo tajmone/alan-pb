@@ -1,5 +1,8 @@
 # ALAN Storyfile Parser
 
+[![PureBasic Version][pb badge]][PureBasic]&nbsp;
+[![License][license badge]][LICENSE]
+
 WIP PureBasic module [`mod_a3c.pbi`][mod_a3c.pbi] to read, initialize and validate ALAN&nbsp;3 `.a3c` storyfiles.
 
 
@@ -40,11 +43,22 @@ The next step will be to implement the code to actually run an adventure by impl
 [ALAN source repository]: https://github.com/alan-if/alan "Visit ALAN repository at GitHub.com"
 [dumpacd]: https://github.com/alan-if/alan/blob/master/interpreter/dumpacd.c "View upstream C source of the 'dumpacd' tool at ALAN repository"
 
+<!-- PureBasic -->
+
+[PureBasic]: https://www.purebasic.com "Visit the PureBasic website"
+
 <!-- project files & folders -->
 
 [a3cinfo.pb]: ./a3cinfo.pb "View PureBasic source"
 [acode-datatypes.pbi]: ./acode-datatypes.pbi "View PureBasic source"
 [helpers.pbi]: ./helpers.pbi "View PureBasic source"
 [mod_a3c.pbi]: ./mod_a3c.pbi "View PureBasic source"
+
+[LICENSE]: ./LICENSE "View MIT License"
+
+<!-- badges -->
+
+[pb badge]: https://img.shields.io/badge/PureBasic-5.73-yellow
+[license badge]: https://img.shields.io/badge/license-MIT-blue
 
 <!-- EOF -->
