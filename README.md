@@ -43,6 +43,7 @@ Repository created in January 2020 by [Tristano Ajmone].
     + [`ARun-PureBasic.html`][ARunPB html] ([Live HTML Preview][ARunPB live])
 - [`/docs-src/`][docs-src/] — AsciiDoc sources.
 - [`/heneo/`][heneo/] — [Hex Editor Neo] assets.
+- [`/kaitai/`][kaitai/] — [Kaitai Struct] assets.
 - [`/pb/`][pb/] — PureBasic sources:
     + [`/a3c/`][a3c/] — Storyfiles parsing.
 
@@ -169,6 +170,7 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 [Eclint]: https://www.npmjs.com/package/eclint "EClint page at NPM"
 [EditorConfig]: https://editorconfig.org "Visit the EditorConfig project website"
 [Hex Editor Neo]: https://www.hhdsoftware.com/hex-editor "Visit Hex Editor Neo product page"
+[Kaitai Struct]: https://kaitai.io "Visit Kaitai Struct website"
 [Rake]: https://ruby.github.io/rake/ "Visit Rake website"
 [Sublime Text 4]: https://www.sublimetext.com "Visit Sublime Text website"
 [Travis CI]: https://travis-ci.com/ "Visit Travis CI website"
@@ -185,6 +187,7 @@ More info is available in the README document inside the [`/arun-c/`][arun-c/] s
 [docs/]: ./docs/ "Navigate to HTML docs folder"
 
 [heneo/]: ./heneo/ "Navigate to Hex Editor Neo assets folder"
+[kaitai/]: ./kaitai/ "Navigate to Kaitai Struct assets folder"
 
 [pb/]: ./pb/ "Navigate to PureBasic sources folder"
 [a3c/]: ./pb/a3c/ "Navigate to '/pb/a3c/' folder"

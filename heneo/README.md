@@ -52,6 +52,16 @@ In the meantime, [Hex Editor Neo] v7 was released, so my definitions might need 
 
 > **NOTE** — I haven't yet had a chance to test if they still work with Hex Editor Neo 7.
 
+Since [Hex Editor Neo] v7 introduced support for [Kaitai Struct] definitions (along with its native C-style definitions format), my interest has now shifted toward creating a Kaitai a3c definition, which could then be used by a multitude of tools beside Hex Editor Neo, and also used to auto-generate storyfile parsers in many programming languages.
+
+For more information, check my Kaitai a3c definition within this repository:
+
+- [`../kaitai/`](../kaitai/)
+
+Hence, my dedication to completing this a3c definition is now shadowed by my new work on its Kaitai Struct counterpart.
+Nevertheless, I decided to add this old definition to the project, partly as a reference guide for my work on the Kaitai definition, but also because I might still complete it as an exercise in learning Hex Editor Neo's native definitions syntax.
+
+
 # Reference Links
 
 - [Free Hex Editor Neo] — Free edition website.
@@ -80,6 +90,10 @@ In the meantime, [Hex Editor Neo] v7 was released, so my definitions might need 
 [Structure Viewer Overview]: https://hhdsoftwaredocs.online/hex/definitive-guide/structure-viewer/overview.html "Hex Editor Neo Documentation » Definitive Guide » Structure Viewer Overview"
 [Structure Editor]: https://hhdsoftwaredocs.online/hex/definitive-guide/structure-viewer/structure-editor/overview.html "Hex Editor Neo Documentation » Definitive Guide » Structure Viewer Overview » Structure Editor"
 [Language Reference]: https://hhdsoftwaredocs.online/hex/definitive-guide/structure-viewer/language-reference/overview.html "Hex Editor Neo Documentation » Definitive Guide » Structure Viewer Overview » Language Reference"
+
+<!-- Kaitai -->
+
+[Kaitai Struct]: https://kaitai.io "Kaitai Struct website"
 
 <!-- project files -->
 

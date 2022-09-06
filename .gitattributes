@@ -69,6 +69,10 @@ rakefile    Ruby
 *.ps1   text eol=crlf
 *.sed   text eol=lf
 
+## Kaitai Struct
+################
+*.ksy   text eol=lf   linguist-language=YAML
+
 
 ## Documentation
 ################
