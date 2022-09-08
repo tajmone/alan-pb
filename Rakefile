@@ -1,4 +1,4 @@
-# "Rakefile" v0.2.0 | 2022/02/28 | by Tristano Ajmone
+# "Rakefile" v0.3.0 | 2022/09/08 | by Tristano Ajmone
 
 require './_assets/rake/globals.rb'
 require './_assets/rake/asciidoc.rb'
@@ -67,7 +67,7 @@ end
 ################
 
 desc "Build documentation"
-task :docs => 'docs/ARun-PureBasic.html'
+task :docs => 'docs/ARun-Clockwork.html'
 
 ADOC_OPTS = <<~HEREDOC
   --failure-level WARN \
@@ -83,8 +83,8 @@ HEREDOC
 
 ADOC_DEPS = FileList['docs-src/*.{asciidoc,adoc}']
 
-file 'docs/ARun-PureBasic.html' => ADOC_DEPS do
-  AsciidoctorConvert('docs-src/ARun-PureBasic.asciidoc', ADOC_OPTS)
+file 'docs/ARun-Clockwork.html' => ADOC_DEPS do
+  AsciidoctorConvert('docs-src/ARun-Clockwork.asciidoc', ADOC_OPTS)
 end
 
 # ==============================================================================

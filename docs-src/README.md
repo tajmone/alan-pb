@@ -1,8 +1,13 @@
+[![Alan version][alan badge]][alan link]&nbsp;
+[![Asciidoctor version][adoc badge]][adoc link]&nbsp;
+[![Ruby version][ruby badge]][ruby link]&nbsp;
+[![License][license badge]][CC BY-NC-SA 4.0]
+
 # ARun Playground Docs Sources
 
 AsciiDoc sources of the project documentation found in the [`/docs/`][docs/] folder:
 
-- [`../docs/ARun-PureBasic.html`][ARunPB html] ([Live HTML Preview][ARunPB live])
+- [`../docs/ARun-Clockwork.html`][ARunBook html] ([Live HTML Preview][ARunBook live])
 
 -----
 
@@ -11,6 +16,7 @@ AsciiDoc sources of the project documentation found in the [`/docs/`][docs/] fol
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" lowercase="only_ascii" uri_encoding="true" levels="1,2,3" -->
 
 - [Custom Asciidoctor Macros](#custom-asciidoctor-macros)
+- [License](#license)
 
 <!-- /MarkdownTOC -->
 
@@ -36,14 +42,24 @@ For more info and usage instructions, see:
     + [`arun-src-linker.rb`][arun rb]
     + [`arun-src-linker-info.html`][arun html] ([Live HTML Preview][arun live])
 
+# License
+
+The [_ARun Clockwork_][ARunBook live] book is Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the [CC BY-NC-SA 4.0] license.
+
+Unless otherwise specified, the same license terms apply to all other documents within this directory tree.
+
 <!-----------------------------------------------------------------------------
                                REFERENCE LINKS
 ------------------------------------------------------------------------------>
 
+[CC BY-NC-SA 4.0]: https://creativecommons.org/licenses/by-nc-sa/4.0/ "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+
+[Asciidoctor]: https://asciidoctor.org "Visit Asciidoctor website"
+
 <!-- project files & folders -->
 
-[ARunPB html]: ../docs/ARun-PureBasic.html "ARun-PureBasic.html (local preview)"
-[ARunPB live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
+[ARunBook html]: ../docs/ARun-Clockwork.html "ARun-Clockwork.html (local preview)"
+[ARunBook live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-Clockwork.html "ARun-Clockwork.html (Live HTML Preview)"
 
 [docs/]: ../docs/ "Navigate to HTML docs folder"
 
@@ -52,5 +68,19 @@ For more info and usage instructions, see:
 [arun rb]: ../_assets/adoc/arun-src-linker.rb
 [arun html]: ../_assets/adoc/arun-src-linker-info.html
 [arun live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/_assets/adoc/arun-src-linker-info.html "Asciidoctor ARun extension (Live HTML Preview)"
+
+<!-- badges -->
+
+[adoc badge]: https://img.shields.io/badge/Asciidoctor-2.0.17-yellow "Asciidoctor version employed"
+[adoc link]: https://asciidoctor.org
+[alan badge]: https://img.shields.io/badge/ALAN-3.0beta8-yellow
+[alan link]: https://www.alanif.se/download-alan-v3/development-kits/development-kits-3-0beta8 "Tested with Alan SDK 3.0beta8"
+[ruby badge]: https://img.shields.io/badge/Ruby-3.1.2-yellow
+[ruby link]: https://www.ruby-lang.org "Requires Ruby 3"
+[license badge]: https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-blue
+
+<!-- people and organizations -->
+
+[Tristano Ajmone]: https://github.com/tajmone "View Tristano Ajmone's GitHub profile"
 
 <!-- EOF -->
