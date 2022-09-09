@@ -1,0 +1,48 @@
+= ALAN Types
+
+The basic ALAN Amachine/ACODE native types are are all 32-bit integers, either signed (`i32`) or unsigned (`u32`).
+Their definition is found in arunsrc:acode.h[10].
+
+[cols="<m,>m,<d",options="autowidth",role=center]
+|=========================================================
+| alan type | int | description
+
+| Aaddr     | u32 | ACODE address in Amemory
+| Abool     | u32 | ACODE Boolean value
+| Aid       | u32 | ACODE Instance Id value
+| Aint      | i32 | ACODE Integer value
+| Aptr      | u32 | Mapped pointer, used in the structures
+| Aset      | u32 | ACODE Set value
+| Aword     | u32 | ACODE word
+| CodeValue | i32 | Definition for the packing process
+|=========================================================
+
+These (and a few others) are the native ALAN types that will be encountered in the storyfile data and its structures, and in the Amachine actual code.
+
+////
+My note from "acode-datatypes.pbi":
+
+; NOTE: Here's the major 32->64bit problem: Aptrs are 32 bit to fit into the
+;       32-bit structure of the Amachine, but sometimes this is used to store
+;       a *real* pointer value, which on 64-bit machines are 64-bit.
+;       So an Aptr is a symbolic value for the actual address and has to be
+;       translated through fromAptr() in memory.c
+
+Note from original source ("acode.h" L.10):
+
+typedef uint32_t Aptr;       /* Type for a mapped possibly 64-bit pointer used in the structures */
+/* Aptrs are 32 bit to fit into the 32-bit structure of the Amachine,
+   but represents a *real* pointer value, which on 64-bit machines are
+   64bits. So an Aptr is a symbolic value for the actual address and
+   has to be translated through fromAptr() in memory.c
+ */
+////
+
+The `Aptr` type is a special case, due to its role of mapping real pointers in memory.
+It will be discussed in detail elsewhere, but for the time being here's the excerpt of its source definition, along with comments:
+
+[source,c]
+---------------------------------------
+include::{arun_c}/acode.h[lines=10..15]
+---------------------------------------
+

@@ -11,3 +11,8 @@
 // Links to ARun 3.0beta8 upstream sources
 // =======================================
 :ARunSrcBase: https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/
+
+// Links to Issues & Discussions
+// =============================
+:alan_48: https://github.com/alan-if/alan/discussions/48[alan#48^, title="alan-if/alan #48 — ACD and Acode vs Text File"]
+:alan_49: https://github.com/alan-if/alan/discussions/49[alan#49^, title="alan-if/alan #49 — Compiler Version in .a3c Storyfiles"]

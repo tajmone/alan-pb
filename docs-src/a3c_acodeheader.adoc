@@ -1,4 +1,3 @@
-[appendix]
 = The ACode Header
 
 The ACode Header is a data structure found at the beginning of an `.a3c` storyfile.

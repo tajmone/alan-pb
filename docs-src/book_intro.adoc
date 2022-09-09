@@ -4,15 +4,23 @@
 :Skein: http://inform7.com/book/WI_1_7.html[Skein^, title="Writing with Inform » §1.7. The Skein"]
 :Inform7: http://inform7.com/[Inform{nbsp}7^, title="Inform 7 website"]
 
-Embarking on the adventure of creating a PureBasic version of the ARun interpreter was a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.
+This project began when I embarked on the adventure of creating a PureBasic version of the ARun interpreter as a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.
 
 But there are also practical reasons for doing so, for I always wanted to create an ALAN version of {Inform7}`'s {Skein} tool along with an ALAN visual debugger -- two projects which could benefit from PureBasic's cross-platform GUI components.
 If I succeed in creating either one of these tools, the ARun PureBasic codebase could lead to a dedicated ALAN IDE written entirely in PureBasic.
 
-Since these goals are still far from reach, for the time being this project will offer me a change to document ARun's design and the ALAN storyfile format (none of which are currently documented).
+As the project evolved, I also started working on a binary structure definition of the **.a3c** file format for Hex Editor Neo, the hex editor which I use in my daily work.
+This definition allowed me to checked the expected data in any compiled adventure, allowing me to better understand where and how my hand-coded parser was going haywire.
+
+In the meantime Hex Editor Neo added native support for Kaitai Struct definitions, which prompted me to start working on an **.a3c** definition for Kaitai Struct too.
+
+So, ultimately, I decided to incorporate into the project these binary definitions I'm working on, along with my PureBasic port experiments, broadening the scope of this project -- the repository was eventually renamed from `alan-pb` to `arun-playground`, and this book from "`ARun PureBasic`" to "`ARun Clockwork`".
+The project is now no longer restricted to the PureBasic language either, since I've decided to also explore other programming languages to experiment with implementing ARun ports.
+
+Since these goals are still far from reach, for the time being this project will offer me a chance to document ARun's design and the ALAN storyfile format (neither of which are currently documented).
 
 
-== Methodology and Conventions
+=== Methodology and Conventions
 
 In the course of this book I'll try to describe the inner workings of ARun in a language agnostic way, in order to simplify creating an ALAN interpreter in any language.
 At the same time, I shall provide references to the original C sources of ARun, including code excerpts, based on the assumption that to fully understand ARun it's necessary to study its source code.
@@ -22,7 +30,7 @@ When discussing primitive scalar data types, I'll resort to Rust's types naming 
 This approach should dispel any ambiguities about the C types (which are often subject to different architecture or compiler interpretations) and PureBasic's bizarre naming of its native types.
 
 
-== ARun {revnumber}
+=== ARun {revnumber}
 
 All references to the upstream ARun code, and excerpts thereof, refer to ARun v{revnumber}.
 The upstream ARun v{revnumber} sources can be viewed on GitHub at:
@@ -36,51 +44,9 @@ Although this might be a limiting choice in the long run, I'm not expecting to s
 The aim of this book is to introduce the reader to the inner workings of ARun, its data structures, the Amachine, etc.; having learnt these, he/she should be able to easily work with the latest upstream source code, regardless of any new changes to it.
 
 
-== ALAN Types
+=== Useful References
 
-The basic ALAN Amachine/ACODE native types are are all 32-bit integers, either signed (`i32`) or unsigned (`u32`).
-Their definition is found in arunsrc:acode.h[10].
+Some external links to Issues, Discussions or other useful material on the topics of this books.
 
-[cols="<m,>m,<d",options="autowidth",role=center]
-|=========================================================
-| alan type | int | description
-
-| Aaddr     | u32 | ACODE address in Amemory
-| Abool     | u32 | ACODE Boolean value
-| Aid       | u32 | ACODE Instance Id value
-| Aint      | i32 | ACODE Integer value
-| Aptr      | u32 | Mapped pointer, used in the structures
-| Aset      | u32 | ACODE Set value
-| Aword     | u32 | ACODE word
-| CodeValue | i32 | Definition for the packing process
-|=========================================================
-
-These (and a few others) are the native ALAN types that will be encountered in the storyfile data and its structures, and in the Amachine actual code.
-
-////
-My note from "acode-datatypes.pbi":
-
-; NOTE: Here's the major 32->64bit problem: Aptrs are 32 bit to fit into the
-;       32-bit structure of the Amachine, but sometimes this is used to store
-;       a *real* pointer value, which on 64-bit machines are 64-bit.
-;       So an Aptr is a symbolic value for the actual address and has to be
-;       translated through fromAptr() in memory.c
-
-Note from original source ("acode.h" L.10):
-
-typedef uint32_t Aptr;       /* Type for a mapped possibly 64-bit pointer used in the structures */
-/* Aptrs are 32 bit to fit into the 32-bit structure of the Amachine,
-   but represents a *real* pointer value, which on 64-bit machines are
-   64bits. So an Aptr is a symbolic value for the actual address and
-   has to be translated through fromAptr() in memory.c
- */
-////
-
-The `Aptr` type is a special case, due to its role of mapping real pointers in memory.
-It will be discussed in detail elsewhere, but for the time being here's the excerpt of its source definition, along with comments:
-
-[source,c]
----------------------------------------
-include::{arun_c}/acode.h[lines=10..15]
----------------------------------------
-
+* {alan_48} -- ACD and Acode vs Text File
+* {alan_49} -- Compiler Version in .a3c Storyfiles

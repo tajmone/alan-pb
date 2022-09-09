@@ -623,32 +623,40 @@ pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
 <span id="author" class="author">Tristano Ajmone</span><br>
 <span id="email" class="email">&lt;<a href="mailto:tajmone@gmail.com">tajmone@gmail.com</a>&gt;</span><br>
 <span id="revnumber">alan 3.0beta8,</span>
-<span id="revdate">2022-09-07</span>
+<span id="revdate">2022-09-09</span>
 <br><span id="revremark">WIP</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#methodology_and_conventions">1. Methodology and Conventions</a></li>
-<li><a href="#arun_3_0beta8">2. ARun 3.0beta8</a></li>
-<li><a href="#alan_types">3. ALAN Types</a></li>
-<li><a href="#the_storyfile">I: The Storyfile</a>
-<ul class="sectlevel1">
-<li><a href="#overview">Overview</a></li>
-<li><a href="#memory_management">4. Memory Management</a>
+<li><a href="#introduction">Introduction</a>
 <ul class="sectlevel2">
-<li><a href="#the_acd_memory_array">4.1. The ACD Memory Array</a></li>
-<li><a href="#the_in_memory_acodeheader">4.2. The In-Memory ACodeHeader</a></li>
-<li><a href="#aaddr_offsets">4.3. Aaddr Offsets</a></li>
-<li><a href="#c_macros">4.4. C Macros</a></li>
+<li><a href="#methodology_and_conventions">Methodology and Conventions</a></li>
+<li><a href="#arun_3_0beta8">ARun 3.0beta8</a></li>
+<li><a href="#useful_references">Useful References</a></li>
 </ul>
 </li>
-<li><a href="#the_acode_header">Appendix A: The ACode Header</a>
+<li><a href="#the_a3c_storyfile">I: The a3c Storyfile</a>
+<ul class="sectlevel1">
+<li><a href="#overview">Overview</a></li>
+<li><a href="#the_acode_header">1. The ACode Header</a>
 <ul class="sectlevel2">
-<li><a href="#latest_header">A.1. Latest Header</a></li>
-<li><a href="#pre_3_0beta2_header">A.2. Pre 3.0beta2 Header</a></li>
-<li><a href="#pre_3_0alpha5_header">A.3. Pre 3.0alpha5 Header</a></li>
+<li><a href="#latest_header">1.1. Latest Header</a></li>
+<li><a href="#pre_3_0beta2_header">1.2. Pre 3.0beta2 Header</a></li>
+<li><a href="#pre_3_0alpha5_header">1.3. Pre 3.0alpha5 Header</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#the_arun_interpreter">II: The ARun Interpreter</a>
+<ul class="sectlevel1">
+<li><a href="#alan_types">2. ALAN Types</a></li>
+<li><a href="#memory_management">3. Memory Management</a>
+<ul class="sectlevel2">
+<li><a href="#the_acd_memory_array">3.1. The ACD Memory Array</a></li>
+<li><a href="#the_in_memory_acodeheader">3.2. The In-Memory ACodeHeader</a></li>
+<li><a href="#aaddr_offsets">3.3. Aaddr Offsets</a></li>
+<li><a href="#c_macros">3.4. C Macros</a></li>
 </ul>
 </li>
 </ul>
@@ -660,7 +668,7 @@ pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>My developer notes on porting ARun to PureBasic.</p>
+<p>My developer notes on porting ARun to other languages and creating binary definitions for the <strong>.a3c</strong> storyfile format.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -702,20 +710,28 @@ You may do so in any reasonable manner, but not in any way that suggests the lic
 <h2 id="introduction"><a class="anchor" href="#introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Embarking on the adventure of creating a PureBasic version of the ARun interpreter was a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.</p>
+<p>This project began when I embarked on the adventure of creating a PureBasic version of the ARun interpreter as a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.</p>
 </div>
 <div class="paragraph">
 <p>But there are also practical reasons for doing so, for I always wanted to create an ALAN version of <a href="http://inform7.com/" title="Inform 7 website" target="_blank" rel="noopener">Inform&#160;7</a>&#8217;s <a href="http://inform7.com/book/WI_1_7.html" title="Writing with Inform » §1.7. The Skein" target="_blank" rel="noopener">Skein</a> tool along with an ALAN visual debugger&#8201;&#8212;&#8201;two projects which could benefit from PureBasic&#8217;s cross-platform GUI components.
 If I succeed in creating either one of these tools, the ARun PureBasic codebase could lead to a dedicated ALAN IDE written entirely in PureBasic.</p>
 </div>
 <div class="paragraph">
-<p>Since these goals are still far from reach, for the time being this project will offer me a change to document ARun&#8217;s design and the ALAN storyfile format (none of which are currently documented).</p>
+<p>As the project evolved, I also started working on a binary structure definition of the <strong>.a3c</strong> file format for Hex Editor Neo, the hex editor which I use in my daily work.
+This definition allowed me to checked the expected data in any compiled adventure, allowing me to better understand where and how my hand-coded parser was going haywire.</p>
 </div>
+<div class="paragraph">
+<p>In the meantime Hex Editor Neo added native support for Kaitai Struct definitions, which prompted me to start working on an <strong>.a3c</strong> definition for Kaitai Struct too.</p>
 </div>
+<div class="paragraph">
+<p>So, ultimately, I decided to incorporate into the project these binary definitions I&#8217;m working on, along with my PureBasic port experiments, broadening the scope of this project&#8201;&#8212;&#8201;the repository was eventually renamed from <code>alan-pb</code> to <code>arun-playground</code>, and this book from &#8220;ARun PureBasic&#8221; to &#8220;ARun Clockwork&#8221;.
+The project is now no longer restricted to the PureBasic language either, since I&#8217;ve decided to also explore other programming languages to experiment with implementing ARun ports.</p>
 </div>
-<div class="sect1">
-<h2 id="methodology_and_conventions"><a class="anchor" href="#methodology_and_conventions"></a>1. Methodology and Conventions</h2>
-<div class="sectionbody">
+<div class="paragraph">
+<p>Since these goals are still far from reach, for the time being this project will offer me a chance to document ARun&#8217;s design and the ALAN storyfile format (neither of which are currently documented).</p>
+</div>
+<div class="sect2">
+<h3 id="methodology_and_conventions"><a class="anchor" href="#methodology_and_conventions"></a>Methodology and Conventions</h3>
 <div class="paragraph">
 <p>In the course of this book I&#8217;ll try to describe the inner workings of ARun in a language agnostic way, in order to simplify creating an ALAN interpreter in any language.
 At the same time, I shall provide references to the original C sources of ARun, including code excerpts, based on the assumption that to fully understand ARun it&#8217;s necessary to study its source code.
@@ -726,10 +742,8 @@ Finally, since this document was created in relation to my PureBasic port of ARu
 This approach should dispel any ambiguities about the C types (which are often subject to different architecture or compiler interpretations) and PureBasic&#8217;s bizarre naming of its native types.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="arun_3_0beta8"><a class="anchor" href="#arun_3_0beta8"></a>2. ARun 3.0beta8</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="arun_3_0beta8"><a class="anchor" href="#arun_3_0beta8"></a>ARun 3.0beta8</h3>
 <div class="paragraph">
 <p>All references to the upstream ARun code, and excerpts thereof, refer to ARun v3.0beta8.
 The upstream ARun v3.0beta8 sources can be viewed on GitHub at:</p>
@@ -751,90 +765,25 @@ The upstream ARun v3.0beta8 sources can be viewed on GitHub at:</p>
 <p>The aim of this book is to introduce the reader to the inner workings of ARun, its data structures, the Amachine, etc.; having learnt these, he/she should be able to easily work with the latest upstream source code, regardless of any new changes to it.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="alan_types"><a class="anchor" href="#alan_types"></a>3. ALAN Types</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="useful_references"><a class="anchor" href="#useful_references"></a>Useful References</h3>
 <div class="paragraph">
-<p>The basic ALAN Amachine/ACODE native types are are all 32-bit integers, either signed (<code>i32</code>) or unsigned (<code>u32</code>).
-Their definition is found in <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/acode.h#L10" title="View 'interpreter/acode.h' source at ALAN repository" target="_blank" rel="noopener"><code>acode.h</code></a> (L.10).</p>
+<p>Some external links to Issues, Discussions or other useful material on the topics of this books.</p>
 </div>
-<table class="tableblock frame-all grid-all fit-content center">
-<colgroup>
-<col>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">alan type</th>
-<th class="tableblock halign-right valign-top">int</th>
-<th class="tableblock halign-left valign-top">description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aaddr</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE address in Amemory</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Abool</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Boolean value</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aid</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Instance Id value</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aint</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>i32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Integer value</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aptr</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mapped pointer, used in the structures</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aset</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Set value</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aword</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE word</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CodeValue</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>i32</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Definition for the packing process</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>These (and a few others) are the native ALAN types that will be encountered in the storyfile data and its structures, and in the Amachine actual code.</p>
-</div>
-<div class="paragraph">
-<p>The <code>Aptr</code> type is a special case, due to its role of mapping real pointers in memory.
-It will be discussed in detail elsewhere, but for the time being here&#8217;s the excerpt of its source definition, along with comments:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="kt">uint32_t</span> <span class="n">Aptr</span><span class="p">;</span>       <span class="cm">/* Type for a mapped possibly 64-bit pointer used in the structures */</span>
-<span class="cm">/* Aptrs are 32 bit to fit into the 32-bit structure of the Amachine,
-   but represents a *real* pointer value, which on 64-bit machines are
-   64bits. So an Aptr is a symbolic value for the actual address and
-   has to be translated through fromAptr() in memory.c
- */</span></code></pre>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/alan-if/alan/discussions/48" title="alan-if/alan #48 — ACD and Acode vs Text File" target="_blank" rel="noopener">alan#48</a>&#8201;&#8212;&#8201;ACD and Acode vs Text File</p>
+</li>
+<li>
+<p><a href="https://github.com/alan-if/alan/discussions/49" title="alan-if/alan #49 — Compiler Version in .a3c Storyfiles" target="_blank" rel="noopener">alan#49</a>&#8201;&#8212;&#8201;Compiler Version in .a3c Storyfiles</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
-<h1 id="the_storyfile" class="sect0"><a class="anchor" href="#the_storyfile"></a>I: The Storyfile</h1>
+<h1 id="the_a3c_storyfile" class="sect0"><a class="anchor" href="#the_a3c_storyfile"></a>I: The a3c Storyfile</h1>
 <div class="openblock partintro">
 <div class="content">
 In this part we&#8217;ll be looking at the ALAN storyfile format, its header and internal data structures, and how ARun loads and validates storyfiles.
@@ -865,135 +814,7 @@ In absence of the required resource file, any multimedia statements in the game,
 </div>
 </div>
 <div class="sect1">
-<h2 id="memory_management"><a class="anchor" href="#memory_management"></a>4. Memory Management</h2>
-<div class="sectionbody">
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-This chapter is still a rough draft.
-For the time being, it&#8217;s just a collection of references.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The ARun interpreter doesn&#8217;t load into memory the whole <code>.a3c</code> file, just the header and code sections (aka &#8220;the ACD&#8221;), leaving out the text/strings section which is accessed from disk on demand.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>ARun doesn&#8217;t load the text section into memory for portability reasons, i.e. so that its machine-independent source code can also be used on phones or other devices with limited memory.</p>
-</div>
-<div class="paragraph">
-<p>When building an ALAN interpreter for desktop computers, where RAM is not a problem, implementers are free to load whole <code>.a3c</code> file into memory, since even the largest adventure will be fairly small size compared to a PDF document or an high resolution image.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="the_acd_memory_array"><a class="anchor" href="#the_acd_memory_array"></a>4.1. The ACD Memory Array</h3>
-<div class="paragraph">
-<p>The ACD (<code>ACodeHeader</code> + <code>ACode</code> sections) is loaded from disk and stored in <code>*memory</code>, an array of <code>Aword</code>s:</p>
-</div>
-<div class="listingblock">
-<div class="title"><a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/memory.h#L25" title="View 'interpreter/memory.h' source at ALAN repository" target="_blank" rel="noopener"><code>memory.h</code></a> (L.25)</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="k">extern</span> <span class="n">Aword</span> <span class="o">*</span><span class="n">memory</span><span class="p">;</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For more info:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>For the code that loads the ACD into <code>*memory</code>, see <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/main.c#L213" title="View 'interpreter/main.c' source at ALAN repository" target="_blank" rel="noopener"><code>loadAndCheckMemory()</code></a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="the_in_memory_acodeheader"><a class="anchor" href="#the_in_memory_acodeheader"></a>4.2. The In-Memory ACodeHeader</h3>
-<div class="paragraph">
-<p>The <code>*header</code> pointer is an <code>ACodeHeader</code> structured pointer:</p>
-</div>
-<div class="listingblock">
-<div class="title"><a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/memory.h#L26" title="View 'interpreter/memory.h' source at ALAN repository" target="_blank" rel="noopener"><code>memory.h</code></a> (L.26)</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="k">extern</span> <span class="n">ACodeHeader</span> <span class="o">*</span><span class="n">header</span><span class="p">;</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>After loading the ACD in <code>*memory[]</code>, the <code>*header</code> pointer is made to point a the beginning of <code>*memory</code>&#8201;&#8212;&#8201;see <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/main.c#L197" title="View 'interpreter/main.c' source at ALAN repository" target="_blank" rel="noopener"><code>setupHeader()</code></a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="aaddr_offsets"><a class="anchor" href="#aaddr_offsets"></a>4.3. Aaddr Offsets</h3>
-<div class="paragraph">
-<p>Within the storyfile, addresses are represented via the <code>Aaddr</code> ALAN type.
-An <code>Aaddr</code> is an absolute offset (in <code>Aword</code>s) from the beginning of the <code>.a3c</code> file.
-When used in reference to an in-memory location, an <code>Aaddr</code> value is equivalent to its index entry in the <code>*memory</code> array&#8201;&#8212;&#8201;e.g. <code>*memory[Aaddr]</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="c_macros"><a class="anchor" href="#c_macros"></a>4.4. C Macros</h3>
-<div class="paragraph">
-<p>ARun makes frequent use of some macro helpers to handle conversions between storyfile offsets and memory pointers, and vice versa.
-The following macros are defined in <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/types.h#L35" title="View 'interpreter/types.h' source at ALAN repository" target="_blank" rel="noopener"><code>types.h</code></a> (L.35):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c"><span class="cp">#define pointerTo(x) ((void *)&amp;memory[x])
-#define addressOf(x) ((((long)x)-((long)memory))/sizeof(Aword))
-#define stringAt(x) ((char *)pointerTo(x))</span></code></pre>
-</div>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-<code>pointerTo(Aaddr)</code> 
-</td>
-<td class="hdlist2">
-<p>converts an <code>Aaddr</code> offset into its true pointer to the <code>*memory[Aaddr]</code> array index.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-<code>addressOf(&amp;memory)</code> 
-</td>
-<td class="hdlist2">
-<p>converts the real address of a <code>*memory[]</code> entry to an <code>Aaddr</code> offset.</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-<code>stringAt(Aaddr)</code> 
-</td>
-<td class="hdlist2">
-<p>converts an <code>Aaddr</code> offset into its true string pointer to the <code>*memory[Aaddr]</code> array index.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Implementations of an ALAN interpreter in other languages will need similar mechanisms of addresses translation, according to the semantics of the target language.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the_acode_header"><a class="anchor" href="#the_acode_header"></a>Appendix A: The ACode Header</h2>
+<h2 id="the_acode_header"><a class="anchor" href="#the_acode_header"></a>1. The ACode Header</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The ACode Header is a data structure found at the beginning of an <code>.a3c</code> storyfile.
@@ -1048,7 +869,7 @@ All its members are four bytes in size.</p>
 <p>ALAN interpreters should check the <code>version</code> value to determine which compiler version an adventure was created with, and then use the matching header structure for that version.</p>
 </div>
 <div class="sect2">
-<h3 id="latest_header"><a class="anchor" href="#latest_header"></a>A.1. Latest Header</h3>
+<h3 id="latest_header"><a class="anchor" href="#latest_header"></a>1.1. Latest Header</h3>
 <div class="paragraph">
 <p>The current default header has 50 members, for a total size of 200 bytes.</p>
 </div>
@@ -1405,7 +1226,7 @@ All its members are four bytes in size.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="pre_3_0beta2_header"><a class="anchor" href="#pre_3_0beta2_header"></a>A.2. Pre 3.0beta2 Header</h3>
+<h3 id="pre_3_0beta2_header"><a class="anchor" href="#pre_3_0beta2_header"></a>1.2. Pre 3.0beta2 Header</h3>
 <div class="paragraph">
 <p>The ACode Header in adventures compiled with ALAN versions before <code>3.0beta2</code> does not contain the last <code>prompt</code> member, so it&#8217;s 4 bytes shorter (i.e. one Aword).</p>
 </div>
@@ -1415,13 +1236,229 @@ The definition of the <code>Pre3_0beta2Header</code> structure can be found in <
 </div>
 </div>
 <div class="sect2">
-<h3 id="pre_3_0alpha5_header"><a class="anchor" href="#pre_3_0alpha5_header"></a>A.3. Pre 3.0alpha5 Header</h3>
+<h3 id="pre_3_0alpha5_header"><a class="anchor" href="#pre_3_0alpha5_header"></a>1.3. Pre 3.0alpha5 Header</h3>
 <div class="paragraph">
 <p>In adventures compiled with ALAN versions before <code>3.0alpha5</code> the ACode Header doesn&#8217;t contain the last two members, <code>ifids</code> and <code>prompt</code>, so it&#8217;s 8 bytes shorter (i.e. two Awords).</p>
 </div>
 <div class="paragraph">
 <p>When ARun detects that and adventure was compiled with ALAN <code>&lt;3.0alpha5</code> it uses the <code>Pre3_0alpha5Header</code> structure instead of <code>ACodeHeader</code>.
 The definition of the <code>Pre3_0alpha5Header</code> structure can be found in <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/acode.h#L590" title="View 'interpreter/acode.h' source at ALAN repository" target="_blank" rel="noopener"><code>acode.h</code></a> (L.590).</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="the_arun_interpreter" class="sect0"><a class="anchor" href="#the_arun_interpreter"></a>II: The ARun Interpreter</h1>
+<div class="openblock partintro">
+<div class="content">
+In this part we&#8217;ll be looking at ARun, ALAN&#160;3&#8217;s native command line interpreter.
+</div>
+</div>
+<div class="sect1">
+<h2 id="alan_types"><a class="anchor" href="#alan_types"></a>2. ALAN Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The basic ALAN Amachine/ACODE native types are are all 32-bit integers, either signed (<code>i32</code>) or unsigned (<code>u32</code>).
+Their definition is found in <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/acode.h#L10" title="View 'interpreter/acode.h' source at ALAN repository" target="_blank" rel="noopener"><code>acode.h</code></a> (L.10).</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content center">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">alan type</th>
+<th class="tableblock halign-right valign-top">int</th>
+<th class="tableblock halign-left valign-top">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aaddr</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE address in Amemory</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Abool</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Boolean value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aid</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Instance Id value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aint</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>i32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Integer value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aptr</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mapped pointer, used in the structures</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aset</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE Set value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Aword</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>u32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACODE word</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CodeValue</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>i32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Definition for the packing process</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>These (and a few others) are the native ALAN types that will be encountered in the storyfile data and its structures, and in the Amachine actual code.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Aptr</code> type is a special case, due to its role of mapping real pointers in memory.
+It will be discussed in detail elsewhere, but for the time being here&#8217;s the excerpt of its source definition, along with comments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">typedef</span> <span class="kt">uint32_t</span> <span class="n">Aptr</span><span class="p">;</span>       <span class="cm">/* Type for a mapped possibly 64-bit pointer used in the structures */</span>
+<span class="cm">/* Aptrs are 32 bit to fit into the 32-bit structure of the Amachine,
+   but represents a *real* pointer value, which on 64-bit machines are
+   64bits. So an Aptr is a symbolic value for the actual address and
+   has to be translated through fromAptr() in memory.c
+ */</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="memory_management"><a class="anchor" href="#memory_management"></a>3. Memory Management</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This chapter is still a rough draft.
+For the time being, it&#8217;s just a collection of references.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The ARun interpreter doesn&#8217;t load into memory the whole <code>.a3c</code> file, just the header and code sections (aka &#8220;the ACD&#8221;), leaving out the text/strings section which is accessed from disk on demand.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ARun doesn&#8217;t load the text section into memory for portability reasons, i.e. so that its machine-independent source code can also be used on phones or other devices with limited memory.</p>
+</div>
+<div class="paragraph">
+<p>When building an ALAN interpreter for desktop computers, where RAM is not a problem, implementers are free to load whole <code>.a3c</code> file into memory, since even the largest adventure will be fairly small size compared to a PDF document or an high resolution image.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="the_acd_memory_array"><a class="anchor" href="#the_acd_memory_array"></a>3.1. The ACD Memory Array</h3>
+<div class="paragraph">
+<p>The ACD (<code>ACodeHeader</code> + <code>ACode</code> sections) is loaded from disk and stored in <code>*memory</code>, an array of <code>Aword</code>s:</p>
+</div>
+<div class="listingblock">
+<div class="title"><a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/memory.h#L25" title="View 'interpreter/memory.h' source at ALAN repository" target="_blank" rel="noopener"><code>memory.h</code></a> (L.25)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">extern</span> <span class="n">Aword</span> <span class="o">*</span><span class="n">memory</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more info:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For the code that loads the ACD into <code>*memory</code>, see <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/main.c#L213" title="View 'interpreter/main.c' source at ALAN repository" target="_blank" rel="noopener"><code>loadAndCheckMemory()</code></a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the_in_memory_acodeheader"><a class="anchor" href="#the_in_memory_acodeheader"></a>3.2. The In-Memory ACodeHeader</h3>
+<div class="paragraph">
+<p>The <code>*header</code> pointer is an <code>ACodeHeader</code> structured pointer:</p>
+</div>
+<div class="listingblock">
+<div class="title"><a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/memory.h#L26" title="View 'interpreter/memory.h' source at ALAN repository" target="_blank" rel="noopener"><code>memory.h</code></a> (L.26)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="k">extern</span> <span class="n">ACodeHeader</span> <span class="o">*</span><span class="n">header</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After loading the ACD in <code>*memory[]</code>, the <code>*header</code> pointer is made to point a the beginning of <code>*memory</code>&#8201;&#8212;&#8201;see <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/main.c#L197" title="View 'interpreter/main.c' source at ALAN repository" target="_blank" rel="noopener"><code>setupHeader()</code></a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aaddr_offsets"><a class="anchor" href="#aaddr_offsets"></a>3.3. Aaddr Offsets</h3>
+<div class="paragraph">
+<p>Within the storyfile, addresses are represented via the <code>Aaddr</code> ALAN type.
+An <code>Aaddr</code> is an absolute offset (in <code>Aword</code>s) from the beginning of the <code>.a3c</code> file.
+When used in reference to an in-memory location, an <code>Aaddr</code> value is equivalent to its index entry in the <code>*memory</code> array&#8201;&#8212;&#8201;e.g. <code>*memory[Aaddr]</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="c_macros"><a class="anchor" href="#c_macros"></a>3.4. C Macros</h3>
+<div class="paragraph">
+<p>ARun makes frequent use of some macro helpers to handle conversions between storyfile offsets and memory pointers, and vice versa.
+The following macros are defined in <a href="https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/types.h#L35" title="View 'interpreter/types.h' source at ALAN repository" target="_blank" rel="noopener"><code>types.h</code></a> (L.35):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c"><span class="cp">#define pointerTo(x) ((void *)&amp;memory[x])
+#define addressOf(x) ((((long)x)-((long)memory))/sizeof(Aword))
+#define stringAt(x) ((char *)pointerTo(x))</span></code></pre>
+</div>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<code>pointerTo(Aaddr)</code> 
+</td>
+<td class="hdlist2">
+<p>converts an <code>Aaddr</code> offset into its true pointer to the <code>*memory[Aaddr]</code> array index.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>addressOf(&amp;memory)</code> 
+</td>
+<td class="hdlist2">
+<p>converts the real address of a <code>*memory[]</code> entry to an <code>Aaddr</code> offset.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>stringAt(Aaddr)</code> 
+</td>
+<td class="hdlist2">
+<p>converts an <code>Aaddr</code> offset into its true string pointer to the <code>*memory[Aaddr]</code> array index.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Implementations of an ALAN interpreter in other languages will need similar mechanisms of addresses translation, according to the semantics of the target language.</p>
 </div>
 </div>
 </div>

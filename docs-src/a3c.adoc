@@ -1,4 +1,4 @@
-= The Storyfile
+= The a3c Storyfile
 
 [partintro]
 In this part we'll be looking at the ALAN storyfile format, its header and internal data structures, and how ARun loads and validates storyfiles.
@@ -6,11 +6,9 @@ In this part we'll be looking at the ALAN storyfile format, its header and inter
 
 :leveloffset: +1
 
-include::part1_intro.adoc[]
+include::a3c_intro.adoc[]
 
-include::part1_memory.adoc[]
-
-include::part1_app_header.adoc[]
+include::a3c_acodeheader.adoc[]
 
 :leveloffset: 0
 

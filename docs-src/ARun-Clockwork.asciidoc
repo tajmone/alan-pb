@@ -1,7 +1,7 @@
 = ARun Clockwork
 :author: Tristano Ajmone
 :email: <tajmone@gmail.com>
-:revdate: 2022-09-07
+:revdate: 2022-09-09
 :revnumber: 3.0beta8
 :revremark: WIP
 :version-label: ALAN
@@ -12,7 +12,7 @@ include::_attributes-custom.adoc[]
 // Preamble
 // ========
 
-My developer notes on porting ARun to PureBasic.
+My developer notes on porting ARun to other languages and creating binary definitions for the **.a3c** storyfile format.
 
 .Copyright and License
 ****
@@ -36,6 +36,8 @@ You may do so in any reasonable manner, but not in any way that suggests the lic
 
 include::book_intro.adoc[]
 
-include::part1.adoc[]
+include::a3c.adoc[]
+
+include::arun.adoc[]
 
 // EOF //
