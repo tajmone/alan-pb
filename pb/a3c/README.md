@@ -58,7 +58,7 @@ The next step will be to implement the code to actually run an adventure by impl
 
 <!-- badges -->
 
-[pb badge]: https://img.shields.io/badge/PureBasic-5.73-yellow
+[pb badge]: https://img.shields.io/badge/PureBasic-6.00-yellow
 [license badge]: https://img.shields.io/badge/license-MIT-blue
 
 <!-- EOF -->

@@ -1,4 +1,4 @@
-﻿; "acode-datatypes.pbi" v0.2.2 | 2022/02/07 | PureBASIC 5.73 LTS | ALAN 3.0beta8
+﻿; "acode-datatypes.pbi" v0.2.2 | 2022/10/19 | PureBASIC 6.00 LTS | ALAN 3.0beta8
 ; ==============================================================================
 ;-                                 ACode Types
 ; ==============================================================================
@@ -21,7 +21,7 @@
 ;-                                 ACode Header
 ; ==============================================================================
 
-Structure ACodeHeader
+Structure ACodeHeader Align #PB_Structure_AlignC
 
   ; /// Important info ///
   tag.b[4]      ; "ALAN"
@@ -127,7 +127,7 @@ EndEnumeration
 
 ;-/// Dictionary
 
-Structure DictionaryEntry
+Structure DictionaryEntry Align #PB_Structure_AlignC
   string.l        ; [Aaddr] ACode address to string
   classBits.l     ; [Aword] Word class
   code.l          ; [Aword]

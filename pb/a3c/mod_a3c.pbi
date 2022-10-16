@@ -1,14 +1,42 @@
-﻿; "mod_a3c.pbi" v0.2.0 | 2022/01/29 | PureBASIC 5.73 LTS | ALAN 3.0beta8
+﻿; "mod_a3c.pbi" v0.2.1 | 2022/10/19 | PureBASIC 6.00 LTS | ALAN 3.0beta8
+;{------------------------------------------------------------------------------
+; Load a storyfile, fix endianess and validate.
 ; ------------------------------------------------------------------------------
-; * Checks if an '.a3c' file is a valid storyfile:
-;   * File Exists? Minimum size met?
-; * Load entire storyfile into memory:
-;   * Does it start with the 'ALAN' tag?
-; * Reverse AWords in Header section.
-;   * Was it compiler with ALAN >= 3.0beta2?
-;   * Validate CRC of ACode section.
-; * Extracts and share the ALAN compiler version used.
-; ------------------------------------------------------------------------------
+; Currently supported tasks:
+;   * Checks if an '.a3c' file is a valid storyfile:
+;     * File Exists? Minimum size met?
+;   * Load entire storyfile into memory:
+;     * Does it start with the 'ALAN' tag?
+;   * Reverse AWords in Header section.
+;     * Was it compiled with ALAN >= 3.0beta2?
+;     * Validate CRC of ACode section.
+;   * Extracts and share the ALAN compiler version used.
+;
+; Work-in-progress tasks:
+;   [ ] Reverse ACode:                      --> ReverseACode()
+;       [x] aux-procs.                      --> AlreadyDone()
+;       [x] aux-procs.                      --> IsEndOfArray()
+;       [x] aux-procs.                      --> ReverseTable()
+;       [x] Reverse dictionary table.       --> ReverseDictionary()
+;       [ ] Reverse syntax table.           --> ReverseSyntaxTable()
+;       [ ] Reverse parameters table.       --> ReverseParameterTable()
+;       [ ] Reverse verbs table.            --> ReverseVerbs()
+;       [ ] Reverse classes table.          --> ReverseClasses()
+;       [ ] Reverse instances table.        --> ReverseInstances()
+;       [ ] Reverse scripts table.          --> ReverseScrs()
+;       [ ] Reverse containers table.       --> ReverseContainers()
+;       [ ] Reverse events table.           --> ReverseEvts()
+;       [ ] Reverse rules table.            --> ReverseRuls()
+;       [ ] Reverse string init table.      --> ReverseTable(*SFHeader\stringInitTable)
+;       [ ] Reverse set init table.         --> ReverseSetInitTable()
+;       [ ] Reverse source file table.      --> ReverseTable(*SFHeader\sourceFileTable)
+;       [ ] Reverse source line table.      --> ReverseTable(*SFHeader\sourceLineTable)
+;       [ ] Reverse statements prompt.      --> ReverseStms()
+;       [ ] Reverse statements start.       --> ReverseStms()
+;       [ ] Reverse messages table.         --> ReverseMsgs()
+;       [ ] Reverse scores table.           --> ReverseTable(*SFHeader\scores)
+;       [ ] Reverse frequency table.        --> ReverseTable(*SFHeader\freq)
+;}------------------------------------------------------------------------------
 
 DeclareModule a3c
   ;-/// Public Procedures Declarations
@@ -35,7 +63,12 @@ Module a3c
   Declare.i ValidateACodeCRC()
   ; Endianess Handling:
   Declare   ReverseAword(*Aword.Long)
+  Declare   ReverseTable(*table, elementSizeInBytes)
   Declare   ReverseHeader(*header.ACodeHeader)
+  Declare   ReverseACode()
+  Declare   ReverseDictionary(Aaddr.l)
+  Declare.i AlreadyDone(Aaddr.l)
+  Declare.i IsEndOfArray(*mempos)
   ; Compiler Version:
   Declare.s GetAlanVersionString()
   Declare.i Correction()
@@ -53,6 +86,8 @@ Module a3c
   EndEnumeration
 
   *a3cMem = #NUL
+
+  NewList AddressesDone.l() ; Aaddr (u32)
 
   ;-/// Public Procedures
   Procedure OpenStoryfile(a3cFName.s)
@@ -136,6 +171,9 @@ Module a3c
       ProcedureReturn #False
     EndIf
 
+    ;- Reverse ACode section endianess
+    ;  ===============================
+    ReverseACode()
     ;-----------------------
     ProcedureReturn #True
   EndProcedure
@@ -148,7 +186,7 @@ Module a3c
   ; ------------------------------------------------------
   Procedure.i CalculateCRC(*memPointer, memSzAWords.i)
     crc.i = 0
-    For i = 0 To memSzAWords - 1
+    For i = 1 To memSzAWords
       crc + (PeekL(*memPointer) & $FF)
       crc + ((PeekL(*memPointer) >> 8) & $FF)
       crc + ((PeekL(*memPointer) >> 16) & $FF)
@@ -167,8 +205,8 @@ Module a3c
     Shared *SFHeader, *a3cMem
     With *SFHeader
       *ACodeStart = *a3cMem + #szHeader
-      ACodeSize = (\size & $FFFFFFFF) - (#szHeader/4)
-      crcExpected.i = \acdcrc & $FFFFFFFF
+      ACodeSize = (u32(\size)) - (#szHeader/4)
+      crcExpected.i = u32(\acdcrc)
       crcFound.i = CalculateCRC(*ACodeStart, ACodeSize)
       If crcFound <> crcExpected
         ConsoleError("Checksum error in ACode section: 0x" +
@@ -184,13 +222,45 @@ Module a3c
   ;-// Endianess Handling Procedures
 
   Procedure ReverseAword(*Aword.Long)
-    ; TODO: Check memory bounds?
-    ; if (w < &memory[0] || w > &memory[memorySize])
-    ;   syserr("Reversing address outside of memory");
+    Shared *a3cMem
+    ; WIP: Check memory bounds of ReverseAword() param
+    If *Aword < *a3cMem Or *Aword > (*a3cMem + MemorySize(*a3cMem))
+      ; TODO: Not properly tested! Is the above formula for upper bound pointer correct?
+      ConsoleError("*** ReverseAword(): out of bounds parameter ***")
+      End 1 ; FIXME: use Abort procedure instead!
+    EndIf
+    ;; if (w < &memory[0] || w > &memory[memorySize])
+    ;;   syserr("Reversing address outside of memory");
+
     *Aword\l = ((((*Aword\l)&$FF)<<24)|
                 (((*Aword\l)&$FF00)<<8)|
                 (((*Aword\l)>>8)&$FF00)|
                 (((*Aword\l)>>24)&$FF))
+  EndProcedure
+
+  ; ---------------------------------------------------------------
+  ; Given a pointer to the start of a table in the ACode section,
+  ; iterate through all its records reversing its Awords endianess.
+  ; A table ends (or is empty) when its points at #EOF (-1).
+  ; ---------------------------------------------------------------
+  Procedure ReverseTable(*table, elementSizeInBytes)
+    ; *table -> pointer to beginning of a table in *a3cMem
+    If elementSizeInBytes < #szAword Or
+       elementSizeInBytes % #szAword
+      ; TODO: syserr() to Abort with Error!
+      ConsoleError("***Wrong size in 'ReverseTable()' ***")
+      End 1 ; FIXME: use Abort procedure instead!
+    EndIf
+    If Not *table
+      ProcedureReturn
+    EndIf
+
+    While Not IsEndOfArray(*table)
+      For i = 1 To (elementSizeInBytes/#szAword)
+        ReverseAword(*table)
+        *table + #szAword
+      Next
+    Wend
   EndProcedure
 
   ; ----------------------------------------------------------------
@@ -203,6 +273,99 @@ Module a3c
       ReverseAword(*header + i)
     Next
   EndProcedure
+
+  ; ---------------------------------------------------------------
+  ; Traverse all the data structures of the memorized ACode section
+  ; and reverse byte order of all integers.
+  ; SEE: "reverse.c" -> reverseNative()
+  ; ---------------------------------------------------------------
+  Procedure ReverseACode() ; WIP: Missing procedures
+    Shared *SFHeader
+    ;; memorySize = header->size;
+    ;; reverseDictionary(header->dictionary);
+    ReverseDictionary(*SFHeader\dictionary)
+  EndProcedure
+
+  ;; reverseSyntaxTable(header->syntaxTableAddress, header->version);
+  ;; if (header->debug && !isPreBeta3(header->version))
+  ;;     reverseParameterNames(header->parameterMapAddress);
+  ;; reverseParameterTable(header->parameterMapAddress);
+  ;; reverseVerbs(header->verbTableAddress);
+  ;; reverseClasses(header->classTableAddress);
+  ;; reverseInstances(header->instanceTableAddress);
+  ;; if (header->debug && !isPreBeta3(header->version))
+  ;;     reverseInstanceIdTable(header);
+  ;; reverseScrs(header->scriptTableAddress);
+  ;; reverseContainers(header->containerTableAddress);
+  ;; reverseEvts(header->eventTableAddress);
+  ;; reverseRuls(header->ruleTableAddress);
+  ;; reverseTable(header->stringInitTable, sizeof(StringInitEntry));
+  ;; reverseSetInitTable(header->setInitTable);
+  ;; reverseTable(header->sourceFileTable, sizeof(SourceFileEntry));
+  ;; reverseTable(header->sourceLineTable, sizeof(SourceLineEntry));
+  ;; reverseStms(header->prompt);
+  ;; reverseStms(header->start);
+  ;; reverseMsgs(header->messageTableAddress);
+  ;; if (!isPreBeta7(version))
+  ;;     /* We can't find the IFID:s in pre-beta7 because of a bug in compiler */
+  ;;     reverseIfids(header->ifids);
+  ;;
+  ;; reverseTable(header->scores, sizeof(Aword));
+  ;; reverseTable(header->freq, sizeof(Aword));
+
+  ; ---------------------------------------------------------------
+  ; Fix endianess of *SFHeader\dictionary table and its references.
+  ; ---------------------------------------------------------------
+  Procedure ReverseDictionary(Aaddr.l)
+    Shared *a3cMem, AddressesDone()
+    If Not Aaddr Or AlreadyDone(Aaddr)
+      ProcedureReturn
+    EndIf
+    *e.DictionaryEntry = AaddrToPointer(Aaddr)
+    If Not IsEndOfArray(*e)
+      ; Reverse all Dict entries...
+      ReverseTable(*e, SizeOf(DictionaryEntry))
+      ; Reverse all Dict->fields tables...
+      While Not IsEndOfArray(*e)
+        If ((*e\classBits & #SYNONYM_BIT) = 0) ; Don't do this for Synonyms
+          ReverseTable(AaddrToPointer(*e\adjectiveRefs), #szAword)
+          ReverseTable(AaddrToPointer(*e\nounRefs), #szAword)
+          ReverseTable(AaddrToPointer(*e\pronounRefs), #szAword)
+        EndIf
+        *e + SizeOf(DictionaryEntry)
+      Wend
+    EndIf
+
+  EndProcedure
+
+  ; -------------------------------------------------------------
+  ; Check whether a given ACode Aaddr was already endian-reversed
+  ; and if not add it to the list of done addresses.
+  ; This is needed during ReverseACode() to avoid reversing more
+  ; than once entries with multiple references.
+  ; -------------------------------------------------------------
+  Procedure.i AlreadyDone(Aaddr.l)
+    ; TODO: Find better name for this proc.
+    Shared AddressesDone()
+    ; Was Aaddr already dealt with?
+    ForEach AddressesDone()
+      If AddressesDone() = Aaddr
+        ProcedureReturn #True
+      EndIf
+    Next
+    AddElement(AddressesDone())
+    AddressesDone() = Aaddr
+  EndProcedure
+
+  ; -------------------------------------------------------------
+  ; Check whether an ACode pointer points to #EOF, which delimits
+  ; the end of a sequence of records (or the lack thereof).
+  ; -------------------------------------------------------------
+  Procedure.i IsEndOfArray(*mempos.Long)
+    ; NOTE: EOF = -1 (defined in C, but not in PB)
+    ProcedureReturn Bool(*mempos\l = #EOF)
+  EndProcedure
+
 
   ;- // Compiler Version Procedures
 
