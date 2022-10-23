@@ -7,7 +7,10 @@
 
 AsciiDoc sources of the project documentation found in the [`/docs/`][docs/] folder:
 
-- [`../docs/ARun-Clockwork.html`][ARunBook html] ([Live HTML Preview][ARunBook live])
+
+|        Source Folder        | Live HTML Preview  |                    Output Doc                   |
+|-----------------------------|--------------------|-------------------------------------------------|
+| [`/clockwork/`][clockwork/] | _[ARun Clockwork]_ | [`../docs/ARun-Clockwork.html`][Clockwork html] |
 
 -----
 
@@ -39,12 +42,12 @@ See the arunsrc:memory.c[] source file.
 For more info and usage instructions, see:
 
 - [`../_assets/adoc/`][adoc/]:
-    + [`arun-src-linker.rb`][arun rb]
-    + [`arun-src-linker-info.html`][arun html] ([Live HTML Preview][arun live])
+    + [`arun-src-linker.rb`][linker rb]
+    + [`arun-src-linker-info.html`][linker html] ([Live HTML Preview][linker live])
 
 # License
 
-The [_ARun Clockwork_][ARunBook live] book is Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the [CC BY-NC-SA 4.0] license.
+The _[ARun Clockwork]_ book is Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the [CC BY-NC-SA 4.0] license.
 
 Unless otherwise specified, the same license terms apply to all other documents within this directory tree.
 
@@ -58,16 +61,17 @@ Unless otherwise specified, the same license terms apply to all other documents 
 
 <!-- project files & folders -->
 
-[ARunBook html]: ../docs/ARun-Clockwork.html "ARun-Clockwork.html (local preview)"
-[ARunBook live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-Clockwork.html "ARun-Clockwork.html (Live HTML Preview)"
+[Clockwork html]: ../docs/ARun-Clockwork.html "ARun-Clockwork.html (local preview)"
+[ARun Clockwork]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-Clockwork.html "ARun-Clockwork.html (Live HTML Preview)"
 
 [docs/]: ../docs/ "Navigate to HTML docs folder"
-
 [adoc/]: ../_assets/adoc/ "Navigate to Asciidoctor assets folder"
 
-[arun rb]: ../_assets/adoc/arun-src-linker.rb
-[arun html]: ../_assets/adoc/arun-src-linker-info.html
-[arun live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/_assets/adoc/arun-src-linker-info.html "Asciidoctor ARun extension (Live HTML Preview)"
+[clockwork/]: ./clockwork/ 'Navigate to "ARun Clockwork" sources folder'
+
+[linker rb]: ../_assets/adoc/arun-src-linker.rb
+[linker html]: ../_assets/adoc/arun-src-linker-info.html
+[linker live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/_assets/adoc/arun-src-linker-info.html "Asciidoctor ARun extension (Live HTML Preview)"
 
 <!-- badges -->
 

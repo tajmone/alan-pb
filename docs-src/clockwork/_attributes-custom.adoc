@@ -1,7 +1,7 @@
 
 // Assets File Paths
 // =================
-:arun_c: ../arun-c
+:arun_c: ../../arun-c
 
 // Text Substitutions
 // ==================
