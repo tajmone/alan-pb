@@ -1,0 +1,23 @@
+:lang: en
+:doctype: book
+// TOC Settings:
+:toclevels: 5
+:toc: left
+// Sections Numbering:
+:partnums:
+:sectnums:
+:sectnumlevels: 2
+// Cross References:
+:idprefix:
+:xrefstyle: full
+:chapter-refsig: Ch.
+:section-refsig: Sec.
+:appendix-refsig: App.
+// Misc Settings:
+:experimental: true
+:icons: font
+:linkattrs: true
+:reproducible: true
+:sectanchors:
+// Paths:
+:imagesdir: images

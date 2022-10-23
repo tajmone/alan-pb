@@ -1,18 +1,14 @@
 [preface]
 = Introduction
 
-:Skein: http://inform7.com/book/WI_1_7.html[Skein^, title="Writing with Inform » §1.7. The Skein"]
-:Inform7: http://inform7.com/[Inform{nbsp}7^, title="Inform 7 website"]
+This project began when I ventured into creating a {PureBasic} version of the ARun interpreter as a fun-project, mostly as a mean to learn the inner-workings of ARun and its Amachine (see my {doc-pb} document).
 
-This project began when I embarked on the adventure of creating a PureBasic version of the ARun interpreter as a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.
+But there were also practical motivations for doing so, for I always wanted to create an ALAN version of {Inform7}`'s {Skein} tool along with an ALAN visual debugger -- two projects which could benefit from PureBasic's cross-platform GUI components.
 
-But there are also practical reasons for doing so, for I always wanted to create an ALAN version of {Inform7}`'s {Skein} tool along with an ALAN visual debugger -- two projects which could benefit from PureBasic's cross-platform GUI components.
-If I succeed in creating either one of these tools, the ARun PureBasic codebase could lead to a dedicated ALAN IDE written entirely in PureBasic.
-
-As the project evolved, I also started working on a binary structure definition of the **.a3c** file format for Hex Editor Neo, the hex editor which I use in my daily work.
+As the project evolved, I also started working on a binary structure definition of the **.a3c** file format for {HexEditorNeo}, the hex editor which I use in my daily work.
 This definition allowed me to checked the expected data in any compiled adventure, allowing me to better understand where and how my hand-coded parser was going haywire.
 
-In the meantime Hex Editor Neo added native support for Kaitai Struct definitions, which prompted me to start working on an **.a3c** definition for Kaitai Struct too.
+In the meantime Hex Editor Neo added native support for {KaitaiStruct} definitions, which prompted me to start working on an **.a3c** definition for Kaitai Struct too.
 
 So, ultimately, I decided to incorporate into the project these binary definitions I'm working on, along with my PureBasic port experiments, broadening the scope of this project -- the repository was eventually renamed from `alan-pb` to `arun-playground`, and this book from "`ARun PureBasic`" to "`ARun Clockwork`".
 The project is now no longer restricted to the PureBasic language either, since I've decided to also explore other programming languages to experiment with implementing ARun ports.
@@ -30,12 +26,12 @@ When discussing primitive scalar data types, I'll resort to Rust's types naming 
 This approach should dispel any ambiguities about the C types (which are often subject to different architecture or compiler interpretations) and PureBasic's bizarre naming of its native types.
 
 
-=== ARun {revnumber}
+=== ARun {AlanVer}
 
-All references to the upstream ARun code, and excerpts thereof, refer to ARun v{revnumber}.
-The upstream ARun v{revnumber} sources can be viewed on GitHub at:
+All references to the upstream ARun code, and excerpts thereof, refer to ARun v{AlanVer}.
+The upstream ARun v{AlanVer} sources can be viewed on GitHub at:
 
-* https://github.com/alan-if/alan/tree/v{revnumber}/interpreter
+* https://github.com/alan-if/alan/tree/v{AlanVer}/interpreter[^]
 
 This decision to stick with a specific version is motivated by the fact that I wanted to have a fixed codebase to work on, without having to deal with upstream code changes and their integration in the book.
 

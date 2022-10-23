@@ -39,7 +39,8 @@ Repository created in January 2020 by [Tristano Ajmone].
 - [`/adventures/demos/`][demos/] — source adventures for testing.
 - [`/arun-c/`][arun-c/] — ARun 3.0beta8 C sources.
 - [`/docs/`][docs/] — HTML documentation:
-    + [`ARun-Clockwork.html`][ARunBook html] ([Live HTML Preview][ARunBook live])
+    + [`ARun-Clockwork.html`][ClockBook html] ([Live HTML Preview][ClockBook live])
+    + [`ARun-PureBasic.html`][PBBook html] ([Live HTML Preview][PBBook live])
 - [`/docs-src/`][docs-src/] — AsciiDoc sources.
 - [`/heneo/`][heneo/] — [Hex Editor Neo] assets.
 - [`/kaitai/`][kaitai/] — [Kaitai Struct] assets.
@@ -155,8 +156,11 @@ This repository contains multiple projects and assets organized into subfolders,
 [LICENSE HENEO]: ./heneo/LICENSE "View MIT License"
 [COPYING]: ./arun-c/COPYING "Read the Artistic License 2.0"
 
-[ARunBook html]: ./docs/ARun-Clockwork.html "ARun-Clockwork.html (local preview)"
-[ARunBook live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-Clockwork.html "ARun-Clockwork.html (Live HTML Preview)"
+[ClockBook html]: ./docs/ARun-Clockwork.html "ARun-Clockwork.html (local preview)"
+[ClockBook live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-Clockwork.html "ARun-Clockwork.html (Live HTML Preview)"
+
+[PBBook html]: ./docs/ARun-PureBasic.html "ARun-PureBasic.html (local preview)"
+[PBBook live]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
 
 <!-- badges -->
 

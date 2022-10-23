@@ -1,0 +1,19 @@
+[preface]
+= Introduction
+
+I embarked on the adventure of creating a {PureBasic} version of the ARun interpreter as a fun-project I had in mind for quite some time, mostly as a mean to learn the inner-workings of ARun and its Amachine.
+
+But there are also practical reasons for doing so, for I always wanted to create an ALAN version of {Inform7}`'s {Skein} tool along with an ALAN visual debugger -- two projects which could benefit from PureBasic's cross-platform GUI components.
+If I succeed in creating either one of these tools, the ARun PureBasic codebase could lead to a dedicated ALAN IDE written entirely in PureBasic.
+
+
+=== ARun {AlanVer}
+
+All references to the upstream ARun code, and excerpts thereof, refer to ARun v{AlanVer}.
+The upstream ARun v{AlanVer} sources can be viewed on GitHub at:
+
+* https://github.com/alan-if/alan/tree/v{AlanVer}/interpreter[^]
+
+This decision to stick with a specific version is motivated by the fact that I wanted to have a fixed codebase to work on, without having to deal with upstream code changes and their integration in the book.
+
+Although this might be a limiting choice in the long run, I'm not expecting to switch to another ARun version until it reaches v3.0 stable release, or unless its source code undergoes major changes (which is fairly unlikely right now).

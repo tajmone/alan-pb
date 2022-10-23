@@ -1,0 +1,29 @@
+// *****************************************
+// Custom Attributes Shared by All Documents
+// *****************************************
+
+// Project Docs Links
+// =================
+:doc-clock: pass:q,m[link:ARun-Clockwork.html[_ARun Clockwork, title="Open the 'ARun Clockwork' document"]]
+:doc-pb: pass:q,m[link:ARun-PureBasic.html[_ARun PureBasic_, title="Open the 'ARun PureBasic' document"]]
+
+// Assets File Paths
+// =================
+:arun_c: ../../arun-c
+
+// Text Substitutions
+// ==================
+:tajmone: https://github.com/tajmone[Tristano Ajmone^, title="View Tristano's GitHub profile"]
+:ccbyncsa: https://creativecommons.org/licenses/by-nc-sa/4.0/[CC BY-NC-SA 4.0^, title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"]
+
+// Links to ARun 3.0beta8 upstream sources
+// =======================================
+:ARunSrcBase: https://github.com/alan-if/alan/blob/v3.0beta8/interpreter/
+
+// 3rd Party Links
+// ===============
+:HexEditorNeo: https://www.hhdsoftware.com/hex-editor[Hex Editor Neo^, title="Visit Hex Editor Neo website"]
+:Inform7: http://inform7.com/[Inform{nbsp}7^, title="Inform 7 website"]
+:KaitaiStruct: https://kaitai.io/[Kaitai Struct^, title="Visit Kaitai Struct website"]
+:PureBasic: https://www.purebasic.com/[PureBasic^, title="Visit PureBasic website"]
+:Skein: http://inform7.com/book/WI_1_7.html[Skein^, title="Writing with Inform » §1.7. The Skein"]

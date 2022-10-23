@@ -1,0 +1,3 @@
+:author: Tristano Ajmone
+:email: <tajmone@gmail.com>
+:AlanVer: 3.0beta8

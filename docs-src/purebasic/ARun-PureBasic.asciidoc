@@ -1,27 +1,23 @@
-= ARun Clockwork
+= ARun PureBasic
 include::../_shared/_attributes-header.adoc[]
+:pb-ver: 6.00
 :revdate: 2022-10-23
-:revnumber: {AlanVer}
+:revnumber: {pb-ver}
 :revremark: WIP
-:version-label: ALAN
+:version-label: PureBASIC
 include::_attributes-header.adoc[]
 
 include::../_shared/_attributes-custom.adoc[]
-include::_attributes-custom.adoc[]
+// include::_attributes-custom.adoc[]
 
 // Preamble
 // ========
 
-My developer notes on porting ARun to other languages and creating binary definitions for the **.a3c** storyfile format.
+My developer notes on porting ARun to PureBasic.
 
 :copyright-dates: 2022
 include::../_shared/license-info.adoc[]
 
-
 include::book_intro.adoc[]
-
-include::a3c.adoc[]
-
-include::arun.adoc[]
 
 // EOF //

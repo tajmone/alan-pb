@@ -11,6 +11,7 @@ AsciiDoc sources of the project documentation found in the [`/docs/`][docs/] fol
 |        Source Folder        | Live HTML Preview  |                    Output Doc                   |
 |-----------------------------|--------------------|-------------------------------------------------|
 | [`/clockwork/`][clockwork/] | _[ARun Clockwork]_ | [`../docs/ARun-Clockwork.html`][Clockwork html] |
+| [`/purebasic/`][purebasic/] | _[ARun PureBasic]_ | [`../docs/ARun-PureBasic.html`][PureBasic html] |
 
 -----
 
@@ -47,9 +48,10 @@ For more info and usage instructions, see:
 
 # License
 
-The _[ARun Clockwork]_ book is Copyright &copy; 2022 [Tristano Ajmone], released under the terms of the [CC BY-NC-SA 4.0] license.
+This directory tree contains multiple documents in AsciiDoc source format.
+The contents of these documents, as well as their source files, are Copyright &copy; by [Tristano Ajmone], released under the terms of the [CC BY-NC-SA 4.0] license.
 
-Unless otherwise specified, the same license terms apply to all other documents within this directory tree.
+See the _Copyright and License_ section in their HTML versions for human-friendly details about their Copyright status and license.
 
 <!-----------------------------------------------------------------------------
                                REFERENCE LINKS
@@ -64,10 +66,14 @@ Unless otherwise specified, the same license terms apply to all other documents 
 [Clockwork html]: ../docs/ARun-Clockwork.html "ARun-Clockwork.html (local preview)"
 [ARun Clockwork]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-Clockwork.html "ARun-Clockwork.html (Live HTML Preview)"
 
+[PureBasic html]: ../docs/ARun-PureBasic.html "ARun-PureBasic.html (local preview)"
+[ARun PureBasic]: https://htmlpreview.github.io/?https://github.com/tajmone/arun-playground/blob/main/docs/ARun-PureBasic.html "ARun-PureBasic.html (Live HTML Preview)"
+
 [docs/]: ../docs/ "Navigate to HTML docs folder"
 [adoc/]: ../_assets/adoc/ "Navigate to Asciidoctor assets folder"
 
 [clockwork/]: ./clockwork/ 'Navigate to "ARun Clockwork" sources folder'
+[purebasic/]: ./purebasic/ 'Navigate to "ARun PureBasic" sources folder'
 
 [linker rb]: ../_assets/adoc/arun-src-linker.rb
 [linker html]: ../_assets/adoc/arun-src-linker-info.html
