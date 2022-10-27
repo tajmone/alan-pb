@@ -26,7 +26,6 @@ Some third party ALAN IF v3 demo adventures for testing purposes.
 This repository folder contains the following source adventures, and their multimedia assets:
 
 - [`advent.alan`][advent.alan]
-- [`cloak.alan`][cloak.alan]
 - [`saviour.alan`][saviour.alan]
 - [`saviour.png`][saviour.png]
 
@@ -51,7 +50,14 @@ Therefore, the Rake task will compile each source adventure three times, invokin
 
 - `<adventure>_DBG.a3c`/`.a3r` — compiler option `-debug`
 - `<adventure>_PACK.a3c`/`.a3r` — compiler option `-pack`
-- `<adventure>.a3c`/`.a3r` — no compiler options
+- `<adventure>.a3c`/`.a3r` — plain mode (no debug nor pack options)
+
+Additionally, when compiling the adventure in plain mode, two additional files will be generated via the ALAN compiler:
+
+- `<adventure>.lis` — listing file containing full dump (opts: `-listing -height 0 -dump !`)
+- `<adventure>.sum` — compiler summary (opts: `-summary` + redirection to file)
+
+These two additional files provide very useful info for inspecting `.a3c` storyfiles, where the `.sum` provides a quick summary of its overall contents, and the `.lis` dump contains extremely detailed info about the entire storyfile contents, including its ACode instructions.
 
 
 # Adding New Adventures

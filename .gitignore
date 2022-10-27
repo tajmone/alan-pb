@@ -7,9 +7,13 @@
 #############
 *.a3c
 *.a3r
+*.dat
 *.ifid
+*.lis
 *.log
 *.sav
+*.sum
+*.tmp
 
 ## AlanIDE Files
 ################
